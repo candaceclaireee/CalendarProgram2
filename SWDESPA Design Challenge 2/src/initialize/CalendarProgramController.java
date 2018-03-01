@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class CalendarProgramController implements Initializable{
@@ -53,6 +52,15 @@ public class CalendarProgramController implements Initializable{
     }
     
     @FXML
+    private void createItem(ActionEvent event) throws IOException {
+    	Parent newload_parent = FXMLLoader.load(getClass().getResource("CreateCalendarItem.fxml"));
+        Scene newload_scene = new Scene(newload_parent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(newload_scene);
+        app_stage.show();
+    }
+    
+    @FXML
     private void prevMonth(ActionEvent event) throws IOException {
 		if (date.getMonthToday() == 0){
 			date.setMonthToday(11);
@@ -63,7 +71,7 @@ public class CalendarProgramController implements Initializable{
 		
 		refreshCalendar(date.getMonthToday(), date.getYearToday());
     }
-
+    
     @FXML
     private void nextMonth(ActionEvent event) throws IOException {
     	if (date.getMonthToday() == 11){
