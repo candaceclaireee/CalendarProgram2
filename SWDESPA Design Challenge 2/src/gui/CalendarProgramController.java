@@ -3,12 +3,14 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import javafx.util.Callback;
 
 import backend.CalendarItems;
 import backend.Date;
 import backend.Event;
 import parsers.CSVDataParser;
 import parsers.DataParser;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class CalendarProgramController implements Initializable{
@@ -43,7 +46,6 @@ public class CalendarProgramController implements Initializable{
             parser.parseData();
         
 	     refreshCalendar(date.getMonthBound(), date.getYearBound());
-
     }    
 	
     public void refreshCalendar(int month, int year){
@@ -106,6 +108,7 @@ public class CalendarProgramController implements Initializable{
 							 itemsForTheDay.add((items.getItems().get(x).getStartHour() < 10 ? "0" : "") +items.getItems().get(x).getStartHour()+":"+(items.getItems().get(x).getStartMinute() < 10 ? "0" : "")
 							 + items.getItems().get(x).getStartMinute() + " - " + (items.getItems().get(x).getEndHour() < 10 ? "0" : "") +items.getItems().get(x).getEndHour()+":"+(items.getItems().get(x).getEndMinute() < 10 ? "0" : "")
 							 + items.getItems().get(x).getEndMinute() + "   "+ items.getItems().get(x).getTitle());
+							 
 						}
 						else {
 							itemsForTheDay.add((items.getItems().get(x).getStartHour() < 10 ? "0" : "") +items.getItems().get(x).getStartHour()+":"+(items.getItems().get(x).getStartMinute() < 10 ? "0" : "")
@@ -115,9 +118,34 @@ public class CalendarProgramController implements Initializable{
 				}
 			}
 		}
-		agendaListView.setItems(itemsForTheDay);     	
+		agendaListView.setItems(itemsForTheDay);   
+		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> stringListView) {
+                return new ListCell<String>(){
+                    @Override
+                    protected void updateItem(String s, boolean b) {
+                		
+                        if(s == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            if (s.contains("-")){
+                            	this.setText(s);
+                                this.setTextFill(Color.BLUE);
+                                setStyle("-fx-font-size: 15;");
+                            } else {
+                            	this.setText(s);
+                                this.setTextFill(Color.GREEN);
+                                setStyle("-fx-font-size: 15;");
+                            }
+                        }
+                        
+                    }
+                };
+            }
+        });	
     }
-    
     
     @FXML
     private void mouseEntered(MouseEvent e) {
@@ -131,7 +159,7 @@ public class CalendarProgramController implements Initializable{
 	        Integer colIndex = GridPane.getColumnIndex(target);
 	        Integer rowIndex = GridPane.getRowIndex(target);
 	        System.out.printf("Mouse entered cell [%d, %d]%n", rowIndex.intValue(), colIndex.intValue());
-	        refreshAgendaPane(rowIndex.intValue(), colIndex.intValue()); //use the pos to show items in date
+	        refreshAgendaPane(rowIndex.intValue(), colIndex.intValue()); 
 	        
     	} catch (NullPointerException ex) {
 	    	System.out.println("Null location!");
