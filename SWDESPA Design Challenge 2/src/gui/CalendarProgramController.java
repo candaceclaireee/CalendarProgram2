@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import javafx.util.Callback;
-
+import backend.CalendarItem;
 import backend.CalendarItems;
 import backend.Date;
 import backend.Event;
@@ -31,27 +31,20 @@ public class CalendarProgramController implements Initializable{
 	 @FXML private Pane mainPane;
 	 @FXML private ListView<String> agendaListView;
 	 @FXML private GridPane calendarGrid;
-	 @FXML private Label monthLabel, yearLabel;
+	 @FXML private Label monthLabel, yearLabel, dateTodayLabel;
 	 @FXML private Button createButton, nextButton, prevButton;
 	 @FXML private CheckBox eventCheck, taskCheck;
 	
 	 private Date date = new Date();
-	 
+	 String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+			 
     public void initialize(URL url, ResourceBundle rb) {
-  
-    	ArrayList<DataParser> parsers = new ArrayList<DataParser>();
-        parsers.add(new CSVDataParser());
-
-         for (DataParser parser: parsers)
-            parser.parseData();
-        
+    	 dateTodayLabel.setText("Today is "+months[date.getMonthToday()]+" "+date.getDayToday()+", "+date.getYearToday());
 	     refreshCalendar(date.getMonthBound(), date.getYearBound());
     }    
 	
     public void refreshCalendar(int month, int year){
-    	
-		String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		int nod, som, i;
+    	int nod, som, i;
 			
 		monthLabel.setText(months[month]);
 		yearLabel.setText(""+year);
@@ -75,7 +68,6 @@ public class CalendarProgramController implements Initializable{
     }
     
     public void refreshAgendaPane(int row, int col) {
-    	String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     	Node result = null;
         ObservableList<Node> childrens = calendarGrid.getChildren();
         
@@ -94,7 +86,8 @@ public class CalendarProgramController implements Initializable{
     	
     	CalendarItems items = new CalendarItems();
 		for (int x = 0 ; x < items.getItemsSize(); x++) {
-			if (items.getItems().get(x).getYear() == Integer.parseInt(yearLabel.getText())){
+			CalendarItem item = CalendarItems.getItems().get(x);
+			if (item.getYear() == Integer.parseInt(yearLabel.getText())){
 				
 				int month = 0;
 				for (int m = 0; m<months.length; m++) {
@@ -102,17 +95,16 @@ public class CalendarProgramController implements Initializable{
 						month = m+1;
 				}
 				
-				if (items.getItems().get(x).getMonth() == month) {
-					if (items.getItems().get(x).getDay() == day) {
-						if (items.getItems().get(x) instanceof Event) {
-							 itemsForTheDay.add((items.getItems().get(x).getStartHour() < 10 ? "0" : "") +items.getItems().get(x).getStartHour()+":"+(items.getItems().get(x).getStartMinute() < 10 ? "0" : "")
-							 + items.getItems().get(x).getStartMinute() + " - " + (items.getItems().get(x).getEndHour() < 10 ? "0" : "") +items.getItems().get(x).getEndHour()+":"+(items.getItems().get(x).getEndMinute() < 10 ? "0" : "")
-							 + items.getItems().get(x).getEndMinute() + "   "+ items.getItems().get(x).getTitle());
-							 
+				if (item.getMonth() == month) {
+					if (item.getDay() == day) {
+						if (item instanceof Event) {
+							 itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+":"+(item.getStartMinute() < 10 ? "0" : "")
+							 + item.getStartMinute() + " - " + (item.getEndHour() < 10 ? "0" : "") +item.getEndHour()+":"+(item.getEndMinute() < 10 ? "0" : "")
+							 + item.getEndMinute() + "   "+ item.getTitle());
 						}
 						else {
-							itemsForTheDay.add((items.getItems().get(x).getStartHour() < 10 ? "0" : "") +items.getItems().get(x).getStartHour()+":"+(items.getItems().get(x).getStartMinute() < 10 ? "0" : "")
-							 + items.getItems().get(x).getStartMinute() + "   "+ items.getItems().get(x).getTitle());
+							itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+":"+(item.getStartMinute() < 10 ? "0" : "")
+							 + item.getStartMinute() + "   "+ item.getTitle());
 						}
 					}
 				}

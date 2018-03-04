@@ -1,7 +1,6 @@
 package parsers;
 
 import java.io.*;
-
 import backend.*;
 
 public class CSVDataParser extends DataParser {
@@ -84,13 +83,55 @@ public class CSVDataParser extends DataParser {
 								
 				t.setTitle(tasklines.get(i)[j+2]);
 				
-				items.addEvent(t);
+				items.addTask(t);
 			}
 		}
 		//items.printEvents(); //test
 	}	
 
-	public static void writeData(int index) {
-		
+	public static void writeData(int type, int index) {
+		BufferedWriter bw = null;
+		String line = null;
+
+		String filepath;
+		if (type == 0) 
+			filepath = "src\\sample_files\\Events.csv";
+		else 
+			filepath = "src\\sample_files\\Tasks.csv";
+				
+
+		try {
+			FileWriter fw = new FileWriter(filepath, true);
+			bw = new BufferedWriter(fw);
+			
+			CalendarItem item = CalendarItems.getItems().get(index);
+			
+			if (type == 0 ) {
+				line = item.getMonth() + "/" + item.getDay() + "/" + item.getYear() + "," 
+					  + (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
+					  + (item.getEndHour() < 10 ? "0" : "") +item.getEndHour()+ ":"+(item.getEndMinute() < 10 ? "0" : "") +item.getEndMinute()+ "," 
+					  +  item.getTitle();
+			} else {
+				line = item.getMonth() + "/" + item.getDay() + "/" + item.getYear() + "," 
+						+ (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
+						+  item.getTitle();
+				
+			}
+			
+			bw.write(line);
+			bw.write(System.getProperty("line.separator"));
+				
+		} catch(IOException e) {
+			e.printStackTrace();
+			
+		} finally {
+			if(bw != null) {
+				try {
+					bw.close();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

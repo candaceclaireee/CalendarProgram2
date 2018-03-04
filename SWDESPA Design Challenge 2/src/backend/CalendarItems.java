@@ -6,19 +6,23 @@ public class CalendarItems {
 
 	private static ArrayList<CalendarItem> items = new ArrayList<CalendarItem>();
 
-	public void addEvent(CalendarItem i){
-		items.add(i);
+	public static void addEvent(Event e){
+		items.add(e);
+	}
+	
+	public static void addTask(Task t){
+		items.add(t);
 	}
 
-	public ArrayList<CalendarItem> getItems(){
+	public static ArrayList<CalendarItem> getItems(){
 		return items;
 	}
 
-	public int getItemsSize() {
+	public static int getItemsSize() {
 		return items.size();
 	}
 
-	public int getIndex(CalendarItem i) {
+	public static int getIndex(CalendarItem i) {
 		return items.indexOf(i);
 	}
 

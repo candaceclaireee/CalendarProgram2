@@ -108,5 +108,10 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
+      <Label fx:id="dateTodayLabel" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="152.0" layoutY="6.0" text="Today is">
+         <font>
+            <Font name="Calibri Light" size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
