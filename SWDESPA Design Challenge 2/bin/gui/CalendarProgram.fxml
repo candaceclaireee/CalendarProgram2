@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,7 +24,15 @@
         <tabs>
           <Tab fx:id="dayPane" text="Day">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bisque" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bisque">
+                     <children>
+                        <TableView fx:id="dayTable" layoutX="257.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="405.0">
+                          <columns>
+                            <TableColumn fx:id="dayTime" editable="false" maxWidth="106.0" minWidth="106.0" prefWidth="106.0" resizable="false" sortable="false" text="Time" />
+                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="299.0" minWidth="299.0" prefWidth="299.0" resizable="false" sortable="false" text="Event" />
+                          </columns>
+                        </TableView>
+                     </children></Pane>
                </content></Tab>
           <Tab fx:id="agendaPane" text="Agenda">
                <content>
