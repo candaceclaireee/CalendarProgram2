@@ -3,19 +3,15 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
 import backend.*;
 import backend.Date;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import parsers.CSVDataParser;
-import parsers.DataParser;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -40,7 +36,7 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	private Label monthLabel, yearLabel, dateTodayLabel;
 	@FXML
-	private Button createButton, nextButton, prevButton;
+	private Button createButton, nextButton, prevButton, doneButton;
 	@FXML
 	private CheckBox eventCheck, taskCheck;
 
@@ -56,6 +52,9 @@ public class CalendarProgramController implements Initializable {
 
 	public void initialize(URL url, ResourceBundle rb) {
 		dateTodayLabel.setText("Today is " + months[date.getMonthToday()] + " " + date.getDayToday() + ", " + date.getYearToday());
+		eventCheck.setSelected(true);
+		taskCheck.setSelected(true);	
+		doneButton.setVisible(false);
 		refreshCalendar(date.getMonthBound(), date.getYearBound());
 	}
 
@@ -119,23 +118,25 @@ public class CalendarProgramController implements Initializable {
 						if (item instanceof Event) {
 							itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
 									+ item.getStartMinute() + " - " + (item.getEndHour() < 10 ? "0" : "") + item.getEndHour() + ":" + (item.getEndMinute() < 10 ? "0" : "")
-									+ item.getEndMinute() + "   " + item.getTitle());
+									+ item.getEndMinute() + "    " + item.getTitle());
 						} else {
 							itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
-									+ item.getStartMinute() + "   " + item.getTitle());
+									+ item.getStartMinute() + "    " + item.getTitle());
 						}
 					}
 				}
+				
 			}
 		}
 		agendaListView.setItems(itemsForTheDay);
 		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
 			public ListCell<String> call(ListView<String> stringListView) {
-				return new ListCell<String>() {
+
+		        final ListCell<String> cell = new ListCell<String>() {
 					@Override
 					protected void updateItem(String s, boolean b) {
-
+						super.updateItem(s,b);
 						if (s == null) {
 							setText(null);
 							setGraphic(null);
@@ -143,16 +144,54 @@ public class CalendarProgramController implements Initializable {
 							if (s.contains("-")) {
 								this.setText(s);
 								this.setTextFill(Color.BLUE);
-								setStyle("-fx-font-size: 15;");
+								this.setStyle("-fx-font-size: 15;");
+								
 							} else {
 								this.setText(s);
 								this.setTextFill(Color.GREEN);
-								setStyle("-fx-font-size: 15;");
+								this.setStyle("-fx-font-size: 15;");
+							}
+							for (int i =0; i<CalendarItems.getItemsSize(); i++) {
+								CalendarItem item =CalendarItems.getItems().get(i);
+								if (s.split("    ")[1].compareTo(item.getTitle()) == 0) {
+									if (item.isDone() == true) {
+										this.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
+									}
+								}
 							}
 						}
-
 					}
+					
 				};
+
+            	EventHandler<ActionEvent> markAsDone = new EventHandler<ActionEvent>() {
+            	    @Override
+            	    public void handle(ActionEvent event) {
+
+            	    	for (int i =0; i<CalendarItems.getItemsSize(); i++) {
+							CalendarItem item =CalendarItems.getItems().get(i);
+							if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
+								if (item.isDone() == false) {
+									cell.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
+									item.setIsDone(true);
+								}
+							}
+						}
+            	    }
+            	};
+            	
+		        cell.setOnMousePressed( new EventHandler<MouseEvent>() {
+		            @Override
+		            public void handle( MouseEvent event )
+		            {
+		                if ( cell.getItem() != null ) {
+		                    ItemSelected.setSelected(cell.getItem().toString());
+		                	doneButton.setVisible(true);
+		                	doneButton.setOnAction(markAsDone);
+		                }
+		            }
+		        } );
+				return cell;
 			}
 		});
 	}
@@ -172,7 +211,7 @@ public class CalendarProgramController implements Initializable {
 		String nodestring = result.toString();
 		String num[] = nodestring.split("'");
 		int day = Integer.parseInt(num[1]);
-
+		
 		ObservableList<Showing> data = initializedDayView(day);
 		dayTime.setCellValueFactory(new PropertyValueFactory<Showing, String>("time"));
 		dayEvent.setCellValueFactory(new PropertyValueFactory<Showing, String>("event"));
@@ -190,7 +229,6 @@ public class CalendarProgramController implements Initializable {
 						Showing currentItem = getTableView().getItems().get(getIndex());
 						if (currentItem.getColor() != null) {
 							setTextFill(Color.WHITE);
-
 							if (currentItem.getColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
 							else
@@ -226,7 +264,7 @@ public class CalendarProgramController implements Initializable {
 			System.out.println("Null location!");
 		}
 	}
-
+	
 	@FXML
 	private void createItem(ActionEvent event) throws IOException {
 		Parent newload_parent = FXMLLoader.load(getClass().getResource("CreateCalendarItem.fxml"));
@@ -257,8 +295,7 @@ public class CalendarProgramController implements Initializable {
 
 		refreshCalendar(date.getMonthToday(), date.getYearToday());
 	}
-
-
+	
 	public ObservableList<Showing> initializedDayView(int dayToDisplay) {
 		ArrayList<CalendarItem> items = CalendarItems.getItems();
 		ArrayList<CalendarItem> itemsToDisplay = new ArrayList<CalendarItem>();
@@ -358,11 +395,9 @@ public class CalendarProgramController implements Initializable {
 							else
 								displayTime.setColor(Color.GREEN);
 						}
-
 				}
 			}
 		}
-
 		return FXCollections.observableArrayList(toTableItems);
 	}
 }

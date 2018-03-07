@@ -13,6 +13,8 @@ public class CalendarItem {
 
 	protected String title;
 	protected String color;
+	
+	protected boolean doneornot;
 
 	public void setDate(int month, int day, int year){
 		this.month = month; 
@@ -43,9 +45,9 @@ public class CalendarItem {
 	public void setTitle(String t){
 		title = t;
 	}
-	
-	public void setColor(String c) {
-		color = c;
+		
+	public void setIsDone(boolean d) {
+		doneornot = d;
 	}
 	
 	public int getMonth(){
@@ -82,5 +84,9 @@ public class CalendarItem {
 
 	public int getEndMinute() {
 		return endminute;
+	}
+	
+	public boolean isDone() {
+		return doneornot; 
 	}
 }

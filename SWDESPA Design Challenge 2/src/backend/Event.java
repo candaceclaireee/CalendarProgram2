@@ -6,6 +6,7 @@ public class Event extends CalendarItem{
 		
 		color = "Blue"; 
 		title = ""; 
+		doneornot = false;
 	}
 
 	public void setStartTime(int h, int m) {

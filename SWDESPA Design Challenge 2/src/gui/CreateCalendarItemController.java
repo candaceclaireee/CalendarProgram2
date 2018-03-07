@@ -124,6 +124,7 @@ public class CreateCalendarItemController implements Initializable{
 		  endtimeLabel.setVisible(true);
 		  
 	}
+	 
 	 @FXML
 	 private void taskChosen(ActionEvent event) throws IOException {
 		  eventCheck.setSelected(false);

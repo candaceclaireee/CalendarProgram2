@@ -6,6 +6,7 @@ public class Task extends CalendarItem{
 		
 		color = "Green"; 
 		title = ""; 
+		doneornot = false;
 	}
 
 	public void setStartTime(int h, int m) {
