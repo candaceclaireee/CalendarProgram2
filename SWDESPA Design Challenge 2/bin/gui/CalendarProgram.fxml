@@ -58,11 +58,16 @@
                <content>
                   <Pane prefHeight="502.0" prefWidth="700.0" style="-fx-background-color: bisque">
                      <children>
-                        <ListView fx:id="agendaListView" layoutX="257.0" layoutY="26.0" prefHeight="355.0" prefWidth="403.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
+                        <ListView fx:id="agendaListView" layoutX="258.0" layoutY="26.0" prefHeight="332.0" prefWidth="403.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </ListView>
+                        <Button fx:id="doneButton" layoutX="577.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Mark as done" textAlignment="CENTER" textFill="#ab0080">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Button>
                      </children>
                   </Pane>
                </content>
