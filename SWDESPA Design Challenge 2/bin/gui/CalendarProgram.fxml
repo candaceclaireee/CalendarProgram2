@@ -20,7 +20,7 @@
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarProgramController">
    <children>
-      <TabPane prefHeight="438.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="438.0" prefWidth="700.0" style="-fx-background-color: bisque;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="dayPane" text="Day">
                <content>
@@ -29,11 +29,31 @@
                         <TableView fx:id="dayTable" layoutX="257.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="405.0">
                           <columns>
                             <TableColumn fx:id="dayTime" editable="false" maxWidth="106.0" minWidth="106.0" prefWidth="106.0" resizable="false" sortable="false" text="Time" />
-                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="299.0" minWidth="299.0" prefWidth="299.0" resizable="false" sortable="false" text="Event" />
+                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="284.0" minWidth="284.0" prefWidth="284.0" resizable="false" sortable="false" text="Event" />
                           </columns>
                         </TableView>
                      </children></Pane>
                </content></Tab>
+            <Tab text="Week">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="234.0" layoutY="25.0" prefHeight="370.0" prefWidth="451.0">
+                          <columns>
+                            <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Time" />
+                            <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Sun" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Mon" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Tue" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Wed" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Thu" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Fri" />
+                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Sat" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
           <Tab fx:id="agendaPane" text="Agenda">
                <content>
                   <Pane prefHeight="502.0" prefWidth="700.0" style="-fx-background-color: bisque">

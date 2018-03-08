@@ -51,6 +51,25 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	private TableColumn<Showing, String> dayEvent;
 
+	@FXML
+	private TableView<Showing> weekTable;
+	@FXML
+	private TableColumn<Showing, String> weekTime;
+	@FXML
+	private TableColumn<Showing, String> weekMon;
+	@FXML
+	private TableColumn<Showing, String> weekTue;
+	@FXML
+	private TableColumn<Showing, String> weekWed;
+	@FXML
+	private TableColumn<Showing, String> weekThu;
+	@FXML
+	private TableColumn<Showing, String> weekFri;
+	@FXML
+	private TableColumn<Showing, String> weekSat;
+	@FXML
+	private TableColumn<Showing, String> weekSun;
+
 	private Date date = new Date();
 	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
@@ -364,5 +383,9 @@ public class CalendarProgramController implements Initializable {
 		}
 
 		return FXCollections.observableArrayList(toTableItems);
+	}
+
+	public void refreshWeekPane(int row, int col) {
+		
 	}
 }
