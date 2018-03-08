@@ -26,7 +26,7 @@ public class CreateCalendarItemController implements Initializable{
 	 @FXML private CheckBox eventCheck, taskCheck;
 	 @FXML private Button discardButton, saveButton;
 	 
-	 private Date date = new Date(); 
+	 private Date date = new Date(); //
 	 String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 			 
 	 public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +36,25 @@ public class CreateCalendarItemController implements Initializable{
 	 
 	 @FXML
 	 private void newCalendarItem(ActionEvent event) throws IOException {
+		 
+		  String title = nameLabel.getText();
+		  
+		  String dateInString = dateLabel.getText();
+		  String dateVars[] = dateInString.split("/");
+		  int month = Integer.parseInt(dateVars[0]);
+		  int day = Integer.parseInt(dateVars[1]);
+		  int year = Integer.parseInt(dateVars[2]);
+		  
+		  String starttime = starttimeLabel.getText();
+		  String sTimeVars[] = starttime.split(":");
+		  int starthour = Integer.parseInt(sTimeVars[0]);
+		  int startminute = Integer.parseInt(sTimeVars[1]);
+		  
+		  String endttime = endtimeLabel.getText();
+		  String eTimeVars[] = endttime.split(":");
+		  int endhour = Integer.parseInt(eTimeVars[0]);
+		  int endminute = Integer.parseInt(eTimeVars[1]);
+		  
 		  if (!eventCheck.isSelected() && !taskCheck.isSelected()) 
 			  errorLabel.setText("Check at least one of the boxes above");
 
@@ -43,24 +62,6 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() || endtimeLabel.getText().isEmpty())
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
-					  String title = nameLabel.getText();
-					  
-					  String dateInString = dateLabel.getText();
-					  String dateVars[] = dateInString.split("/");
-					  int month = Integer.parseInt(dateVars[0]);
-					  int day = Integer.parseInt(dateVars[1]);
-					  int year = Integer.parseInt(dateVars[2]);
-					  
-					  String starttime = starttimeLabel.getText();
-					  String sTimeVars[] = starttime.split(":");
-					  int starthour = Integer.parseInt(sTimeVars[0]);
-					  int startminute = Integer.parseInt(sTimeVars[1]);
-					  
-					  String endttime = endtimeLabel.getText();
-					  String eTimeVars[] = endttime.split(":");
-					  int endhour = Integer.parseInt(eTimeVars[0]);
-					  int endminute = Integer.parseInt(eTimeVars[1]);
-					  
 					  Event item = new Event();
 					  item.setDate(month, day, year);
 					  item.setTitle(title);
@@ -83,19 +84,6 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() )
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
-				   	  String title = nameLabel.getText();
-					  
-					  String dateInString = dateLabel.getText();
-					  String dateVars[] = dateInString.split("/");
-					  int month = Integer.parseInt(dateVars[0]);
-					  int day = Integer.parseInt(dateVars[1]);
-					  int year = Integer.parseInt(dateVars[2]);
-					  
-					  String starttime = starttimeLabel.getText();
-					  String sTimeVars[] = starttime.split(":");
-					  int starthour = Integer.parseInt(sTimeVars[0]);
-					  int startminute = Integer.parseInt(sTimeVars[1]);
-					  
 					  Task item = new Task();
 					  item.setDate(month, day, year);
 					  item.setTitle(title);
@@ -112,9 +100,7 @@ public class CreateCalendarItemController implements Initializable{
 					  app_stage.setScene(newload_scene);
 					  app_stage.show();
 			   }
-			   
-		  }
-		  		  	  
+		  }  
 	 }
 	 
 	 @FXML
@@ -122,7 +108,6 @@ public class CreateCalendarItemController implements Initializable{
 		  taskCheck.setSelected(false);
 		  toLabel.setText("To");
 		  endtimeLabel.setVisible(true);
-		  
 	}
 	 
 	 @FXML

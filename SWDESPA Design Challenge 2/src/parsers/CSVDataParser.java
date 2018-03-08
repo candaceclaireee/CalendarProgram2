@@ -34,6 +34,20 @@ public class CSVDataParser extends DataParser {
 
 				curLine = br.readLine();
 			}
+			
+			f = new File("src\\sample_files\\DoneTasks.csv");
+			fr = new FileReader(f);
+			br = new BufferedReader(fr);
+
+			curLine = br.readLine();
+
+			while(curLine != null) {
+
+				String line[] = curLine.split(",");
+				donetasklines.add(line);
+
+				curLine = br.readLine();
+			}
 
 			br.close();
 			
@@ -41,7 +55,7 @@ public class CSVDataParser extends DataParser {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void processData() {
 		CalendarItems items = new CalendarItems();
 		
@@ -83,12 +97,18 @@ public class CSVDataParser extends DataParser {
 								
 				t.setTitle(tasklines.get(i)[j+2]);
 				
+				for (int k=0; k<donetasklines.size(); k++) {
+					for (int l=0; l<donetasklines.get(k).length; l=l+3) {
+						if (t.getTitle().compareTo(donetasklines.get(k)[l+2]) == 0) 
+							t.setIsDone(true);
+					}
+				}
 				items.addTask(t);
 			}
 		}
 		//items.printEvents(); //test
 	}	
-
+	
 	public static void writeData(int type, int index) {
 		BufferedWriter bw = null;
 		String line = null;
@@ -96,8 +116,10 @@ public class CSVDataParser extends DataParser {
 		String filepath;
 		if (type == 0) 
 			filepath = "src\\sample_files\\Events.csv";
-		else 
+		else if (type == 1)
 			filepath = "src\\sample_files\\Tasks.csv";
+		else 
+			filepath = "src\\sample_files\\DoneTasks.csv";
 				
 
 		try {
@@ -111,11 +133,10 @@ public class CSVDataParser extends DataParser {
 					  + (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
 					  + (item.getEndHour() < 10 ? "0" : "") +item.getEndHour()+ ":"+(item.getEndMinute() < 10 ? "0" : "") +item.getEndMinute()+ "," 
 					  +  item.getTitle();
-			} else {
+			} else if (type == 1 || type == 2){
 				line = item.getMonth() + "/" + item.getDay() + "/" + item.getYear() + "," 
 						+ (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
 						+  item.getTitle();
-				
 			}
 			
 			bw.write(line);
@@ -134,4 +155,5 @@ public class CSVDataParser extends DataParser {
 			}
 		}
 	}
+	
 }

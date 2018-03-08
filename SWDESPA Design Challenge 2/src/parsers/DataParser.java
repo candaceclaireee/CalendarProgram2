@@ -6,6 +6,7 @@ public abstract class DataParser {
 
 	protected ArrayList<String[]> eventlines = new ArrayList<String[]>();
 	protected ArrayList<String[]> tasklines = new ArrayList<String[]>();
+	protected ArrayList<String[]> donetasklines = new ArrayList<String[]>();
 	
 	public void parseData() {
 		readData(); 

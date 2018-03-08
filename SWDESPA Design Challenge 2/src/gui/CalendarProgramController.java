@@ -7,9 +7,10 @@ import backend.*;
 import backend.Date;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-
+import parsers.CSVDataParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
@@ -36,7 +37,7 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	private Label monthLabel, yearLabel, dateTodayLabel;
 	@FXML
-	private Button createButton, nextButton, prevButton, doneButton;
+	private Button createButton, nextButton, prevButton, doneButton, removeButton;
 	@FXML
 	private CheckBox eventCheck, taskCheck;
 
@@ -55,6 +56,7 @@ public class CalendarProgramController implements Initializable {
 		eventCheck.setSelected(true);
 		taskCheck.setSelected(true);	
 		doneButton.setVisible(false);
+		removeButton.setVisible(false);
 		refreshCalendar(date.getMonthBound(), date.getYearBound());
 	}
 
@@ -84,7 +86,7 @@ public class CalendarProgramController implements Initializable {
 		}
 	}
 
-	public void refreshAgendaPane(int row, int col) {
+	public void refreshAgendaPane(int row, int col) {//
 		Node result = null;
 		ObservableList<Node> childrens = calendarGrid.getChildren();
 
@@ -128,7 +130,7 @@ public class CalendarProgramController implements Initializable {
 				
 			}
 		}
-		agendaListView.setItems(itemsForTheDay);
+		agendaListView.setItems(itemsForTheDay.sorted());
 		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
 			public ListCell<String> call(ListView<String> stringListView) {
@@ -153,7 +155,7 @@ public class CalendarProgramController implements Initializable {
 							}
 							for (int i =0; i<CalendarItems.getItemsSize(); i++) {
 								CalendarItem item =CalendarItems.getItems().get(i);
-								if (s.split("    ")[1].compareTo(item.getTitle()) == 0) {
+								if (s.split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 									if (item.isDone() == true) {
 										this.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
 									}
@@ -161,7 +163,6 @@ public class CalendarProgramController implements Initializable {
 							}
 						}
 					}
-					
 				};
 
             	EventHandler<ActionEvent> markAsDone = new EventHandler<ActionEvent>() {
@@ -170,16 +171,33 @@ public class CalendarProgramController implements Initializable {
 
             	    	for (int i =0; i<CalendarItems.getItemsSize(); i++) {
 							CalendarItem item =CalendarItems.getItems().get(i);
-							if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
+							if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 								if (item.isDone() == false) {
 									cell.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
 									item.setIsDone(true);
+									CSVDataParser csv = new CSVDataParser(); 
+									int index = CalendarItems.getIndex(item);
+									csv.writeData(2, index);
 								}
 							}
 						}
             	    }
             	};
             	
+
+            	EventHandler<ActionEvent> removeItem = new EventHandler<ActionEvent>() {
+            	    @Override
+            	    public void handle(ActionEvent event) {
+            	    	for (int i=0; i<CalendarItems.getItemsSize(); i++) {
+            	    		CalendarItem item = CalendarItems.getItems().get(i);   
+            	    		if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
+            	    			CalendarItems.removeItem(item); 
+            	    			itemsForTheDay.remove(itemsForTheDay.remove(ItemSelected.getSelected()));
+            	    			// MUST REMOVE FROM EXCEL FILES TOO!!!
+            	    		}
+            	    	}            	    	
+            	    }
+            	};
 		        cell.setOnMousePressed( new EventHandler<MouseEvent>() {
 		            @Override
 		            public void handle( MouseEvent event )
@@ -188,6 +206,8 @@ public class CalendarProgramController implements Initializable {
 		                    ItemSelected.setSelected(cell.getItem().toString());
 		                	doneButton.setVisible(true);
 		                	doneButton.setOnAction(markAsDone);
+		                	removeButton.setVisible(true);
+		                	removeButton.setOnAction(removeItem);		                	
 		                }
 		            }
 		        } );
@@ -256,7 +276,6 @@ public class CalendarProgramController implements Initializable {
 			}
 			Integer colIndex = GridPane.getColumnIndex(target);
 			Integer rowIndex = GridPane.getRowIndex(target);
-			System.out.printf("Mouse entered cell [%d, %d]%n", rowIndex.intValue(), colIndex.intValue());
 			refreshAgendaPane(rowIndex.intValue(), colIndex.intValue());
 			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
 
@@ -374,7 +393,7 @@ public class CalendarProgramController implements Initializable {
 					displayTime.setEvent(item.getTitle());
 
 					if (item instanceof Event)
-						displayTime.setColor(Color.BLUE);
+						displayTime.setColor(Color.BLUE); 
 					else
 						displayTime.setColor(Color.GREEN);
 				} else {

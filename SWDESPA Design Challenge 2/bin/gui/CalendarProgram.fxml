@@ -128,5 +128,10 @@
             <Font name="Calibri Light" size="15.0" />
          </font>
       </Label>
+      <Button fx:id="removeButton" layoutX="490.0" layoutY="394.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Remove" textAlignment="CENTER" textFill="#ab0080">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
