@@ -64,8 +64,8 @@
             <Font name="Calibri Light" size="16.0" />
          </font>
       </Label>
-      <CheckBox fx:id="eventCheck" layoutX="157.0" layoutY="373.0" mnemonicParsing="false" text="Event" />
-      <CheckBox fx:id="taskCheck" layoutX="156.0" layoutY="396.0" mnemonicParsing="false" text="Task" />
+      <CheckBox fx:id="eventCheck" layoutX="157.0" layoutY="373.0" mnemonicParsing="false" onAction="#checkBoxAction" text="Event" />
+      <CheckBox fx:id="taskCheck" layoutX="156.0" layoutY="396.0" mnemonicParsing="false" onAction="#checkBoxAction" text="Task" />
       <Button fx:id="prevButton" layoutX="146.0" layoutY="68.0" mnemonicParsing="false" onAction="#prevMonth" prefHeight="2.0" prefWidth="33.0" text="&lt;" textFill="#ab0080">
          <font>
             <Font name="System Bold" size="10.0" />

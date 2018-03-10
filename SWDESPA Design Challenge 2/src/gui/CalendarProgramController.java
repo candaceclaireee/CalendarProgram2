@@ -81,12 +81,14 @@ public class CalendarProgramController implements Initializable {
 
 			if (date.getDayToday() == i) {
 				refreshAgendaPane(row, column);
+				ItemSelected.setRow(row);
+				ItemSelected.setCol(column);
 				refreshDayPane(row, column);
 			}
 		}
 	}
 
-	public void refreshAgendaPane(int row, int col) {//
+	public void refreshAgendaPane(int row, int col) {
 		Node result = null;
 		ObservableList<Node> childrens = calendarGrid.getChildren();
 
@@ -117,13 +119,27 @@ public class CalendarProgramController implements Initializable {
 
 				if (item.getMonth() == month) {
 					if (item.getDay() == day) {
-						if (item instanceof Event) {
-							itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
-									+ item.getStartMinute() + " - " + (item.getEndHour() < 10 ? "0" : "") + item.getEndHour() + ":" + (item.getEndMinute() < 10 ? "0" : "")
-									+ item.getEndMinute() + "    " + item.getTitle());
-						} else {
-							itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
-									+ item.getStartMinute() + "    " + item.getTitle());
+						if (eventCheck.isSelected() == false && taskCheck.isSelected() == true) {
+							if (item instanceof Task) {
+								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
+										+ item.getStartMinute() + "    " + item.getTitle());
+							}
+						} else if (taskCheck.isSelected() == false && eventCheck.isSelected() == true) {
+							if (item instanceof Event) {
+								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
+										+ item.getStartMinute() + " - " + (item.getEndHour() < 10 ? "0" : "") + item.getEndHour() + ":" + (item.getEndMinute() < 10 ? "0" : "")
+										+ item.getEndMinute() + "    " + item.getTitle());
+							}
+						} else if (taskCheck.isSelected() == true && eventCheck.isSelected() == true) {
+
+							if (item instanceof Event) {
+								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
+										+ item.getStartMinute() + " - " + (item.getEndHour() < 10 ? "0" : "") + item.getEndHour() + ":" + (item.getEndMinute() < 10 ? "0" : "")
+										+ item.getEndMinute() + "    " + item.getTitle());
+							} else {
+								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
+										+ item.getStartMinute() + "    " + item.getTitle());
+							}
 						}
 					}
 				}
@@ -175,9 +191,9 @@ public class CalendarProgramController implements Initializable {
 								if (item.isDone() == false) {
 									cell.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
 									item.setIsDone(true);
+									
 									CSVDataParser csv = new CSVDataParser(); 
-									int index = CalendarItems.getIndex(item);
-									csv.writeData(2, index);
+									csv.writeData();
 								}
 							}
 						}
@@ -193,7 +209,9 @@ public class CalendarProgramController implements Initializable {
             	    		if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
             	    			CalendarItems.removeItem(item); 
             	    			itemsForTheDay.remove(itemsForTheDay.remove(ItemSelected.getSelected()));
-            	    			// MUST REMOVE FROM EXCEL FILES TOO!!!
+
+          					  CSVDataParser csv = new CSVDataParser();
+          					  csv.writeData();
             	    		}
             	    	}            	    	
             	    }
@@ -215,8 +233,7 @@ public class CalendarProgramController implements Initializable {
 			}
 		});
 	}
-
-
+	
 	public void refreshDayPane(int row, int col) {
 		Node result = null;
 		ObservableList<Node> childrens = calendarGrid.getChildren();
@@ -277,6 +294,8 @@ public class CalendarProgramController implements Initializable {
 			Integer colIndex = GridPane.getColumnIndex(target);
 			Integer rowIndex = GridPane.getRowIndex(target);
 			refreshAgendaPane(rowIndex.intValue(), colIndex.intValue());
+			ItemSelected.setRow(rowIndex.intValue());
+			ItemSelected.setCol(colIndex.intValue());
 			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
 
 		} catch (NullPointerException ex) {
@@ -314,6 +333,12 @@ public class CalendarProgramController implements Initializable {
 
 		refreshCalendar(date.getMonthToday(), date.getYearToday());
 	}
+
+	@FXML
+	public void checkBoxAction() {
+		refreshAgendaPane(ItemSelected.getRow(), ItemSelected.getCol());
+	}
+	
 	
 	public ObservableList<Showing> initializedDayView(int dayToDisplay) {
 		ArrayList<CalendarItem> items = CalendarItems.getItems();
@@ -419,4 +444,6 @@ public class CalendarProgramController implements Initializable {
 		}
 		return FXCollections.observableArrayList(toTableItems);
 	}
+	
+
 }

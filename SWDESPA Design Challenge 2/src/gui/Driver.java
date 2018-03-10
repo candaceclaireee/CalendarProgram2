@@ -26,11 +26,11 @@ public class Driver extends Application {
     	ArrayList<DataParser> parsers = new ArrayList<DataParser>();
         parsers.add(new CSVDataParser());
 
-        for (DataParser parser: parsers)
+        for (DataParser parser: parsers) {
             parser.parseData();
-    	
+        }
+            	
         launch(args);
-        
     }
     
 }

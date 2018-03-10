@@ -37,23 +37,6 @@ public class CreateCalendarItemController implements Initializable{
 	 @FXML
 	 private void newCalendarItem(ActionEvent event) throws IOException {
 		 
-		  String title = nameLabel.getText();
-		  
-		  String dateInString = dateLabel.getText();
-		  String dateVars[] = dateInString.split("/");
-		  int month = Integer.parseInt(dateVars[0]);
-		  int day = Integer.parseInt(dateVars[1]);
-		  int year = Integer.parseInt(dateVars[2]);
-		  
-		  String starttime = starttimeLabel.getText();
-		  String sTimeVars[] = starttime.split(":");
-		  int starthour = Integer.parseInt(sTimeVars[0]);
-		  int startminute = Integer.parseInt(sTimeVars[1]);
-		  
-		  String endttime = endtimeLabel.getText();
-		  String eTimeVars[] = endttime.split(":");
-		  int endhour = Integer.parseInt(eTimeVars[0]);
-		  int endminute = Integer.parseInt(eTimeVars[1]);
 		  
 		  if (!eventCheck.isSelected() && !taskCheck.isSelected()) 
 			  errorLabel.setText("Check at least one of the boxes above");
@@ -62,17 +45,35 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() || endtimeLabel.getText().isEmpty())
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
+
+					  String title = nameLabel.getText();
+					  
+					  String dateInString = dateLabel.getText();
+					  String dateVars[] = dateInString.split("/");
+					  int month = Integer.parseInt(dateVars[0]);
+					  int day = Integer.parseInt(dateVars[1]);
+					  int year = Integer.parseInt(dateVars[2]);
+					  
+					  String starttime = starttimeLabel.getText();
+					  String sTimeVars[] = starttime.split(":");
+					  int starthour = Integer.parseInt(sTimeVars[0]);
+					  int startminute = Integer.parseInt(sTimeVars[1]);
+					  
+					  String endttime = endtimeLabel.getText();
+					  String eTimeVars[] = endttime.split(":");
+					  int endhour = Integer.parseInt(eTimeVars[0]);
+					  int endminute = Integer.parseInt(eTimeVars[1]);
+					  
 					  Event item = new Event();
 					  item.setDate(month, day, year);
 					  item.setTitle(title);
 					  item.setStartTime(starthour, startminute);
 					  item.setEndTime(endhour, endminute);
-
 					  CalendarItems.addEvent(item);
-					  int index = CalendarItems.getIndex(item);
-					  CSVDataParser csv = new CSVDataParser();
-					  csv.writeData(0, index);
 
+					  CSVDataParser csv = new CSVDataParser();
+					  csv.writeData();
+					  
 					  Parent newload_parent = FXMLLoader.load(getClass().getResource("CalendarProgram.fxml"));
 					  Scene newload_scene = new Scene(newload_parent);
 					  Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -84,15 +85,29 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() )
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
+
+
+					  String title = nameLabel.getText();
+					  
+					  String dateInString = dateLabel.getText();
+					  String dateVars[] = dateInString.split("/");
+					  int month = Integer.parseInt(dateVars[0]);
+					  int day = Integer.parseInt(dateVars[1]);
+					  int year = Integer.parseInt(dateVars[2]);
+					  
+					  String starttime = starttimeLabel.getText();
+					  String sTimeVars[] = starttime.split(":");
+					  int starthour = Integer.parseInt(sTimeVars[0]);
+					  int startminute = Integer.parseInt(sTimeVars[1]);
+					  
 					  Task item = new Task();
 					  item.setDate(month, day, year);
 					  item.setTitle(title);
 					  item.setStartTime(starthour, startminute);
-					  
 					  CalendarItems.addTask(item);
-					  int index = CalendarItems.getIndex(item);
+
 					  CSVDataParser csv = new CSVDataParser();
-					  csv.writeData(1, index);
+					  csv.writeData();
 
 					  Parent newload_parent = FXMLLoader.load(getClass().getResource("CalendarProgram.fxml"));
 					  Scene newload_scene = new Scene(newload_parent);
