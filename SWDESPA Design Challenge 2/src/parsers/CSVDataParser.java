@@ -34,6 +34,20 @@ public class CSVDataParser extends DataParser {
 
 				curLine = br.readLine();
 			}
+			
+			f = new File("src\\sample_files\\DoneTasks.csv");
+			fr = new FileReader(f);
+			br = new BufferedReader(fr);
+
+			curLine = br.readLine();
+
+			while(curLine != null) {
+
+				String line[] = curLine.split(",");
+				donetasklines.add(line);
+
+				curLine = br.readLine();
+			}
 
 			br.close();
 			
@@ -41,7 +55,7 @@ public class CSVDataParser extends DataParser {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void processData() {
 		CalendarItems items = new CalendarItems();
 		
@@ -82,56 +96,138 @@ public class CSVDataParser extends DataParser {
 				t.setStartTime(Integer.parseInt(starttime[0]), Integer.parseInt(starttime[1]));
 								
 				t.setTitle(tasklines.get(i)[j+2]);
-				
+				t.setIsDone(false);
 				items.addTask(t);
 			}
 		}
+
+		for(int i = 0; i < donetasklines.size(); i++) {
+			for(int j = 0; j < donetasklines.get(i).length; j=j+3) {
+								
+				Task t = new Task();
+
+				String line = donetasklines.get(i)[j];
+				String date[] = line.split("/");
+				t.setDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+
+				line = donetasklines.get(i)[j+1];
+				String starttime[] = line.split(":");
+				t.setStartTime(Integer.parseInt(starttime[0]), Integer.parseInt(starttime[1]));
+								
+				t.setTitle(donetasklines.get(i)[j+2]);
+				t.setIsDone(true);
+				items.addTask(t);
+			}
+		}
+		
 		//items.printEvents(); //test
 	}	
 
-	public static void writeData(int type, int index) {
-		BufferedWriter bw = null;
-		String line = null;
-
-		String filepath;
-		if (type == 0) 
-			filepath = "src\\sample_files\\Events.csv";
-		else 
-			filepath = "src\\sample_files\\Tasks.csv";
-				
-
+	public void writeData() {
+		String[] lineToWrite;
+		String filepathE = "src\\sample_files\\Events.csv";
+		String filepathT = "src\\sample_files\\Tasks.csv"; 
+		String filepathDT = "src\\sample_files\\DoneTasks.csv";
+		
 		try {
-			FileWriter fw = new FileWriter(filepath, true);
-			bw = new BufferedWriter(fw);
-			
-			CalendarItem item = CalendarItems.getItems().get(index);
-			
-			if (type == 0 ) {
-				line = item.getMonth() + "/" + item.getDay() + "/" + item.getYear() + "," 
-					  + (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
-					  + (item.getEndHour() < 10 ? "0" : "") +item.getEndHour()+ ":"+(item.getEndMinute() < 10 ? "0" : "") +item.getEndMinute()+ "," 
-					  +  item.getTitle();
-			} else {
-				line = item.getMonth() + "/" + item.getDay() + "/" + item.getYear() + "," 
-						+ (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute()+ "," 
-						+  item.getTitle();
-				
-			}
-			
-			bw.write(line);
-			bw.write(System.getProperty("line.separator"));
-				
-		} catch(IOException e) {
-			e.printStackTrace();
-			
-		} finally {
-			if(bw != null) {
-				try {
-					bw.close();
-				} catch(IOException e) {
-					e.printStackTrace();
+			for (int i=0; i<CalendarItems.getItemsSize(); i++) {
+				CalendarItem item = CalendarItems.getItems().get(i);
+				if (item instanceof Event) {
+					lineToWrite = new String[4];
+					lineToWrite[0] = item.getMonth() + "/" + item.getDay() + "/" + item.getYear();
+					lineToWrite[1] = (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute();
+					lineToWrite[2] = (item.getEndHour() < 10 ? "0" : "") +item.getEndHour()+ ":"+(item.getEndMinute() < 10 ? "0" : "") +item.getEndMinute();
+					lineToWrite[3] = item.getTitle();
+					eventlinesNew.add(lineToWrite);
+				}
+				else {
+					lineToWrite = new String[3];
+					if (item.isDone() == false) {
+						lineToWrite[0] = item.getMonth() + "/" + item.getDay() + "/" + item.getYear();
+						lineToWrite[1] = (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute();
+						lineToWrite[2] = item.getTitle();
+						tasklinesNew.add(lineToWrite);
+					}
+					else if (item.isDone() == true) {
+						lineToWrite[0] = item.getMonth() + "/" + item.getDay() + "/" + item.getYear();
+						lineToWrite[1] = (item.getStartHour() < 10 ? "0" : "") +item.getStartHour()+ ":"+(item.getStartMinute() < 10 ? "0" : "") +item.getStartMinute();
+						lineToWrite[2] = item.getTitle();
+						donetasklinesNew.add(lineToWrite);
+					}
 				}
 			}
+			
+			StringBuilder temp = new StringBuilder();
+			StringBuilder temp2 = new StringBuilder();
+			StringBuilder temp3 = new StringBuilder();
+			for(int i = 0; i < eventlinesNew.size(); i++) {
+				for(int j = 0; j < eventlinesNew.get(i).length; j++) {
+					temp.append(eventlinesNew.get(i)[j]);
+					if (j!= eventlinesNew.get(i).length-1)
+						temp.append(",");
+					eventlinesNew.get(i)[j] = temp.toString();
+					temp.setLength(0);
+				}
+			}
+			for(int i = 0; i < tasklinesNew.size(); i++) {
+				for(int j = 0; j < tasklinesNew.get(i).length; j++) {
+					temp2.append(tasklinesNew.get(i)[j]);
+					if (j!= tasklinesNew.get(i).length-1)
+						temp2.append(",");
+					tasklinesNew.get(i)[j] = temp2.toString();
+					temp2.setLength(0);
+				}
+			}
+			for(int i = 0; i < donetasklinesNew.size(); i++) {
+				for(int j = 0; j < donetasklinesNew.get(i).length; j++) {
+					temp3.append(donetasklinesNew.get(i)[j]);
+					if (j!= donetasklinesNew.get(i).length-1)
+						temp3.append(",");
+					donetasklinesNew.get(i)[j] = temp3.toString();
+					temp3.setLength(0);
+				}
+			}
+			
+			FileWriter fw = new FileWriter(filepathE);
+			BufferedWriter bw = new BufferedWriter(fw);
+			String line = null;
+			for(int i = 0; i < eventlinesNew.size(); i++) {
+				for(int j = 0; j < eventlinesNew.get(i).length; j++) {
+					line = eventlinesNew.get(i)[j];
+					bw.write(line);
+				}
+				bw.write(System.getProperty("line.separator"));
+			}
+			bw.close();
+			
+			FileWriter fw2 = new FileWriter(filepathT);
+			BufferedWriter bw2 = new BufferedWriter(fw2);
+			String line2 = null;
+			for(int i = 0; i < tasklinesNew.size(); i++) {
+				for(int j = 0; j < tasklinesNew.get(i).length; j++) {
+					line2 = tasklinesNew.get(i)[j];
+					bw2.write(line2);
+				}
+				bw2.write(System.getProperty("line.separator"));
+			}
+			bw2.close();
+			
+			FileWriter fw3 = new FileWriter(filepathDT);
+			BufferedWriter bw3 = new BufferedWriter(fw3);
+			String line3 = null;
+			for(int i = 0; i < donetasklinesNew.size(); i++) {
+				for(int j = 0; j < donetasklinesNew.get(i).length; j++) {
+					line3 = donetasklinesNew.get(i)[j];
+					bw3.write(line3);
+				}
+				bw3.write(System.getProperty("line.separator"));
+			}
+			bw3.close();
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+
 		}
 	}
+	
 }

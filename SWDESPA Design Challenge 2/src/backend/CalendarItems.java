@@ -13,7 +13,11 @@ public class CalendarItems {
 	public static void addTask(Task t){
 		items.add(t);
 	}
-
+	
+	public static void removeItem(CalendarItem i) {
+		items.remove(i);
+	}
+	
 	public static ArrayList<CalendarItem> getItems(){
 		return items;
 	}

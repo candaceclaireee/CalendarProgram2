@@ -26,7 +26,7 @@ public class CreateCalendarItemController implements Initializable{
 	 @FXML private CheckBox eventCheck, taskCheck;
 	 @FXML private Button discardButton, saveButton;
 	 
-	 private Date date = new Date(); 
+	 private Date date = new Date(); //
 	 String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 			 
 	 public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +36,8 @@ public class CreateCalendarItemController implements Initializable{
 	 
 	 @FXML
 	 private void newCalendarItem(ActionEvent event) throws IOException {
+		 
+		  
 		  if (!eventCheck.isSelected() && !taskCheck.isSelected()) 
 			  errorLabel.setText("Check at least one of the boxes above");
 
@@ -43,6 +45,7 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() || endtimeLabel.getText().isEmpty())
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
+
 					  String title = nameLabel.getText();
 					  
 					  String dateInString = dateLabel.getText();
@@ -66,12 +69,11 @@ public class CreateCalendarItemController implements Initializable{
 					  item.setTitle(title);
 					  item.setStartTime(starthour, startminute);
 					  item.setEndTime(endhour, endminute);
-
 					  CalendarItems.addEvent(item);
-					  int index = CalendarItems.getIndex(item);
-					  CSVDataParser csv = new CSVDataParser();
-					  csv.writeData(0, index);
 
+					  CSVDataParser csv = new CSVDataParser();
+					  csv.writeData();
+					  
 					  Parent newload_parent = FXMLLoader.load(getClass().getResource("CalendarProgram.fxml"));
 					  Scene newload_scene = new Scene(newload_parent);
 					  Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -83,7 +85,9 @@ public class CreateCalendarItemController implements Initializable{
 			   if(nameLabel.getText().isEmpty() || dateLabel.getText().isEmpty() || starttimeLabel.getText().isEmpty() )
 				   errorLabel.setText("Make sure all fields have values");
 			   else {
-				   	  String title = nameLabel.getText();
+
+
+					  String title = nameLabel.getText();
 					  
 					  String dateInString = dateLabel.getText();
 					  String dateVars[] = dateInString.split("/");
@@ -100,11 +104,10 @@ public class CreateCalendarItemController implements Initializable{
 					  item.setDate(month, day, year);
 					  item.setTitle(title);
 					  item.setStartTime(starthour, startminute);
-					  
 					  CalendarItems.addTask(item);
-					  int index = CalendarItems.getIndex(item);
+
 					  CSVDataParser csv = new CSVDataParser();
-					  csv.writeData(1, index);
+					  csv.writeData();
 
 					  Parent newload_parent = FXMLLoader.load(getClass().getResource("CalendarProgram.fxml"));
 					  Scene newload_scene = new Scene(newload_parent);
@@ -112,9 +115,7 @@ public class CreateCalendarItemController implements Initializable{
 					  app_stage.setScene(newload_scene);
 					  app_stage.show();
 			   }
-			   
-		  }
-		  		  	  
+		  }  
 	 }
 	 
 	 @FXML
@@ -122,7 +123,6 @@ public class CreateCalendarItemController implements Initializable{
 		  taskCheck.setSelected(false);
 		  toLabel.setText("To");
 		  endtimeLabel.setVisible(true);
-		  
 	}
 	 
 	 @FXML
