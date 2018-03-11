@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="647a311f-df58-4853-9751-82c33b1c2089" name="Default" comment="Fully functional (with slightly error on displaying the colors) Week View and Day View.">
+    <list default="true" id="647a311f-df58-4853-9751-82c33b1c2089" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/bin/backend/CalendarItems.class" afterPath="$PROJECT_DIR$/bin/backend/CalendarItems.class" />
-      <change beforePath="$PROJECT_DIR$/bin/backend/Date.class" afterPath="" />
       <change beforePath="$PROJECT_DIR$/bin/gui/CalendarProgram.fxml" afterPath="$PROJECT_DIR$/bin/gui/CalendarProgram.fxml" />
       <change beforePath="$PROJECT_DIR$/bin/gui/CalendarProgramController$1$1.class" afterPath="$PROJECT_DIR$/bin/gui/CalendarProgramController$1$1.class" />
       <change beforePath="$PROJECT_DIR$/bin/gui/CalendarProgramController$1.class" afterPath="$PROJECT_DIR$/bin/gui/CalendarProgramController$1.class" />
@@ -15,13 +14,6 @@
       <change beforePath="$PROJECT_DIR$/bin/parsers/DataParser.class" afterPath="$PROJECT_DIR$/bin/parsers/DataParser.class" />
       <change beforePath="$PROJECT_DIR$/bin/sample_files/Events.csv" afterPath="$PROJECT_DIR$/bin/sample_files/Events.csv" />
       <change beforePath="$PROJECT_DIR$/bin/sample_files/Tasks.csv" afterPath="$PROJECT_DIR$/bin/sample_files/Tasks.csv" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Date.java" afterPath="$PROJECT_DIR$/src/backend/CalendarDate.java" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Showing.java" afterPath="$PROJECT_DIR$/src/backend/DayTableItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CalendarProgram.fxml" afterPath="$PROJECT_DIR$/src/gui/CalendarProgram.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CalendarProgramController.java" afterPath="$PROJECT_DIR$/src/gui/CalendarProgramController.java" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CreateCalendarItemController.java" afterPath="$PROJECT_DIR$/src/gui/CreateCalendarItemController.java" />
-      <change beforePath="$PROJECT_DIR$/src/sample_files/DoneTasks.csv" afterPath="$PROJECT_DIR$/src/sample_files/DoneTasks.csv" />
-      <change beforePath="$PROJECT_DIR$/src/sample_files/Events.csv" afterPath="$PROJECT_DIR$/src/sample_files/Events.csv" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -350,7 +342,7 @@
       <workItem from="1520506046625" duration="2326000" />
       <workItem from="1520644329112" duration="25338000" />
       <workItem from="1520702235069" duration="282000" />
-      <workItem from="1520702570384" duration="18981000" />
+      <workItem from="1520702570384" duration="19009000" />
     </task>
     <task id="LOCAL-00001" summary="Added Day View.">
       <created>1520351728232</created>
@@ -366,11 +358,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520384348320</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fully functional (with slightly error on displaying the colors) Week View and Day View.">
+      <created>1520750882992</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1520750882992</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93391000" />
+    <option name="totallyTimeSpent" value="93419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
