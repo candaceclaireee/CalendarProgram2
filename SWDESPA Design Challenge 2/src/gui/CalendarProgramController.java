@@ -874,6 +874,8 @@ public class CalendarProgramController implements Initializable {
 			}
 
 			for (WeekTableItem displayTime: toTableItems) {
+				if (displayTime.getTime().equalsIgnoreCase(""))
+					continue;
 				if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin &&
 						displayTime.getValueEndHour() == endHour && displayTime.getValueEndMin() == endMin) {
 
