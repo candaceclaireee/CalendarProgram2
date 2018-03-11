@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarProgramController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CalendarProgramController">
    <children>
       <TabPane prefHeight="438.0" prefWidth="700.0" style="-fx-background-color: bisque;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -26,10 +26,10 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bisque">
                      <children>
-                        <TableView fx:id="dayTable" layoutX="257.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="405.0">
+                        <TableView fx:id="dayTable" layoutX="238.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="443.0">
                           <columns>
-                            <TableColumn fx:id="dayTime" editable="false" maxWidth="106.0" minWidth="106.0" prefWidth="106.0" resizable="false" sortable="false" text="Time" />
-                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="284.0" minWidth="284.0" prefWidth="284.0" resizable="false" sortable="false" text="Event" />
+                            <TableColumn fx:id="dayTime" editable="false" maxWidth="119.0" minWidth="102.0" prefWidth="102.0" resizable="false" sortable="false" text="Time" />
+                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="348.0" minWidth="284.0" prefWidth="348.0" resizable="false" sortable="false" text="Event" />
                           </columns>
                         </TableView>
                      </children></Pane>
@@ -38,16 +38,16 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="weekTable" layoutX="234.0" layoutY="25.0" prefHeight="370.0" prefWidth="451.0">
+                        <TableView fx:id="weekTable" layoutX="238.0" layoutY="25.0" prefHeight="360.0" prefWidth="443.0">
                           <columns>
-                            <TableColumn fx:id="weekTime" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Time" />
-                            <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Sun" />
-                              <TableColumn fx:id="weekMonEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Mon" />
-                              <TableColumn fx:id="weekTueEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Tue" />
-                              <TableColumn fx:id="weekWedEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Wed" />
-                              <TableColumn fx:id="weekThuEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Thu" />
-                              <TableColumn fx:id="weekFriEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Fri" />
-                              <TableColumn fx:id="weekSatEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Sat" />
+                            <TableColumn fx:id="weekTime" editable="false" maxWidth="68.0" prefWidth="59.0" resizable="false" sortable="false" text="Time" />
+                            <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Sun" />
+                              <TableColumn fx:id="weekMonEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Mon" />
+                              <TableColumn fx:id="weekTueEvent" editable="false" maxWidth="78.0" prefWidth="54.0" resizable="false" sortable="false" text="Tue" />
+                              <TableColumn fx:id="weekWedEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Wed" />
+                              <TableColumn fx:id="weekThuEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Thu" />
+                              <TableColumn fx:id="weekFriEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Fri" />
+                              <TableColumn fx:id="weekSatEvent" editable="false" maxWidth="78.0" prefWidth="54.0" resizable="false" sortable="false" text="Sat" />
                           </columns>
                         </TableView>
                      </children>
@@ -58,17 +58,17 @@
                <content>
                   <Pane prefHeight="502.0" prefWidth="700.0" style="-fx-background-color: bisque">
                      <children>
-                        <Button fx:id="removeButton" layoutX="482.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Remove" textAlignment="CENTER" textFill="#ab0080">
+                        <Button fx:id="removeButton" layoutX="501.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Remove" textAlignment="CENTER" textFill="#ab0080">
                            <font>
                               <Font name="System Bold" size="10.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="agendaListView" layoutX="258.0" layoutY="26.0" prefHeight="332.0" prefWidth="403.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
+                        <ListView fx:id="agendaListView" layoutX="238.0" layoutY="26.0" prefHeight="332.0" prefWidth="443.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </ListView>
-                        <Button fx:id="doneButton" layoutX="577.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Mark as done" textAlignment="CENTER" textFill="#ab0080">
+                        <Button fx:id="doneButton" layoutX="596.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Mark as done" textAlignment="CENTER" textFill="#ab0080">
                            <font>
                               <Font name="System Bold" size="10.0" />
                            </font>

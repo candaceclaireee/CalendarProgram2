@@ -1,14 +1,13 @@
-package gui;
+package controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import backend.*;
-import backend.CalendarDate;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import parsers.CSVDataParser;
+import model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,7 +66,6 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	private TableColumn<WeekTableItem, String> weekSatEvent;
 
-
 	private CalendarDate date = new CalendarDate();
 	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
@@ -101,10 +99,9 @@ public class CalendarProgramController implements Initializable {
 
 			if (date.getDayToday() == i) {
 				refreshAgendaPane(row, column);
-				ItemSelected.setRow(row);
-				ItemSelected.setCol(column);
 				refreshDayPane(row, column);
 				refreshWeekPane(row, column);
+				ItemSelected.setRowCol(row, column);
 			}
 		}
 	}
@@ -194,7 +191,7 @@ public class CalendarProgramController implements Initializable {
 								CalendarItem item =CalendarItems.getItems().get(i);
 								if (s.split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 									if (item.isDone() == true) {
-										this.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
+										this.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
 									}
 								}
 							}
@@ -211,9 +208,11 @@ public class CalendarProgramController implements Initializable {
 							CalendarItem item =CalendarItems.getItems().get(i);
 							if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 								if (item.isDone() == false) {
-									cell.getStylesheets().add(getClass().getResource("strikethrough.css").toExternalForm());
+									cell.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
 									item.setIsDone(true);
 
+	            	    			refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
+	            	    			refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
 									CSVDataParser csv = new CSVDataParser();
 									csv.writeData();
 								}
@@ -232,7 +231,9 @@ public class CalendarProgramController implements Initializable {
             	    			CalendarItems.removeItem(item);
             	    			itemsForTheDay.remove(itemsForTheDay.remove(ItemSelected.getSelected()));
 
-          					  CSVDataParser csv = new CSVDataParser();
+            	    		  refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
+            	    		  refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
+            	    		  CSVDataParser csv = new CSVDataParser();
           					  csv.writeData();
             	    		}
             	    	}
@@ -319,8 +320,7 @@ public class CalendarProgramController implements Initializable {
 			refreshAgendaPane(rowIndex.intValue(), colIndex.intValue());
 			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
 			refreshWeekPane(rowIndex.intValue(), colIndex.intValue());
-			ItemSelected.setRow(rowIndex.intValue());
-			ItemSelected.setCol(colIndex.intValue());
+			ItemSelected.setRowCol(rowIndex.intValue(), colIndex.intValue());
 		} catch (NullPointerException ex) {
 			System.out.println("Null location!");
 		}
@@ -328,7 +328,7 @@ public class CalendarProgramController implements Initializable {
 	
 	@FXML
 	private void createItem(ActionEvent event) throws IOException {
-		Parent newload_parent = FXMLLoader.load(getClass().getResource("CreateCalendarItem.fxml"));
+		Parent newload_parent = FXMLLoader.load(getClass().getResource("../view/CreateCalendarItem.fxml"));
 		Scene newload_scene = new Scene(newload_parent);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(newload_scene);

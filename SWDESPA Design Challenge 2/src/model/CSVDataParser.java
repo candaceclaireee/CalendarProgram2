@@ -1,7 +1,6 @@
-package parsers;
+package model;
 
 import java.io.*;
-import backend.*;
 
 public class CSVDataParser extends DataParser {
 	
