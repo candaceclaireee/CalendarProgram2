@@ -1,8 +1,8 @@
-package gui;
+package model;
 
 public class ItemSelected {
 	public static String itemSelected; 
-	public static int row, col; //used this class as storage for row and col to refresh agenda (CHANGE!!)
+	public static int row, col; 
 	
 	public static void setSelected(String s) {
 		itemSelected = s; 
@@ -10,6 +10,11 @@ public class ItemSelected {
 	
 	public static String getSelected() {
 		return itemSelected;
+	}
+	
+	public static void setRowCol(int r, int c) {
+		row = r; 
+		col = c;
 	}
 	
 	public static void setRow(int r) {

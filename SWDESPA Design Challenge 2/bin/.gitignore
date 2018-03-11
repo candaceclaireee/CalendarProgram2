@@ -1,4 +1,7 @@
-/gui/
 /backend/
+/gui/
 /parsers/
 /sample_files/
+/model/
+/controller/
+/view/

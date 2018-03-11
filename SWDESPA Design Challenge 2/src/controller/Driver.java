@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import java.util.ArrayList;
 
@@ -7,14 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import parsers.CSVDataParser;
-import parsers.DataParser;
+import model.*; 
 
 public class Driver extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("CalendarProgram.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/CalendarProgram.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Productivity Tool");
         stage.setScene(scene);

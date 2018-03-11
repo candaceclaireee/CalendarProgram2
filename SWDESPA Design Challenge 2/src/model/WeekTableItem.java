@@ -1,4 +1,4 @@
-package backend;
+package model;
 
 
 import javafx.beans.property.SimpleStringProperty;
