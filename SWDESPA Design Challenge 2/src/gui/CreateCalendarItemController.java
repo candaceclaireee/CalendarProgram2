@@ -26,7 +26,7 @@ public class CreateCalendarItemController implements Initializable{
 	 @FXML private CheckBox eventCheck, taskCheck;
 	 @FXML private Button discardButton, saveButton;
 	 
-	 private Date date = new Date(); //
+	 private CalendarDate date = new CalendarDate(); //
 	 String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 			 
 	 public void initialize(URL location, ResourceBundle resources) {

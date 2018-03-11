@@ -4,7 +4,7 @@ package backend;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 
-public class Showing {
+public class DayTableItem {
     private SimpleStringProperty time;
     private SimpleStringProperty event;
     private Color color;
@@ -13,7 +13,7 @@ public class Showing {
     private int valueStartMin;
     private int valueEndMin;
 
-    public Showing(String time, String event) {
+    public DayTableItem(String time, String event) {
         this.time = new SimpleStringProperty(time);
         this.event = new SimpleStringProperty(event);
     }

@@ -38,16 +38,16 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="234.0" layoutY="25.0" prefHeight="370.0" prefWidth="451.0">
+                        <TableView fx:id="weekTable" layoutX="234.0" layoutY="25.0" prefHeight="370.0" prefWidth="451.0">
                           <columns>
-                            <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Time" />
-                            <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Sun" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Mon" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Tue" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Wed" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Thu" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Fri" />
-                              <TableColumn editable="false" prefWidth="56.375" resizable="false" sortable="false" text="Sat" />
+                            <TableColumn fx:id="weekTime" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Time" />
+                            <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Sun" />
+                              <TableColumn fx:id="weekMonEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Mon" />
+                              <TableColumn fx:id="weekTueEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Tue" />
+                              <TableColumn fx:id="weekWedEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Wed" />
+                              <TableColumn fx:id="weekThuEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Thu" />
+                              <TableColumn fx:id="weekFriEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Fri" />
+                              <TableColumn fx:id="weekSatEvent" editable="false" maxWidth="54.25" prefWidth="54.25" resizable="false" sortable="false" text="Sat" />
                           </columns>
                         </TableView>
                      </children>
@@ -58,6 +58,11 @@
                <content>
                   <Pane prefHeight="502.0" prefWidth="700.0" style="-fx-background-color: bisque">
                      <children>
+                        <Button fx:id="removeButton" layoutX="482.0" layoutY="365.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Remove" textAlignment="CENTER" textFill="#ab0080">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Button>
                         <ListView fx:id="agendaListView" layoutX="258.0" layoutY="26.0" prefHeight="332.0" prefWidth="403.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -148,10 +153,5 @@
             <Font name="Calibri Light" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="removeButton" layoutX="490.0" layoutY="394.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Remove" textAlignment="CENTER" textFill="#ab0080">
-         <font>
-            <Font name="System Bold" size="10.0" />
-         </font>
-      </Button>
    </children>
 </Pane>

@@ -2,15 +2,15 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import backend.*;
-import backend.Date;
+import backend.CalendarDate;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import parsers.CSVDataParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
@@ -42,13 +42,33 @@ public class CalendarProgramController implements Initializable {
 	private CheckBox eventCheck, taskCheck;
 
 	@FXML
-	private TableView<Showing> dayTable;
+	private TableView<DayTableItem> dayTable;
 	@FXML
-	private TableColumn<Showing, String> dayTime;
+	private TableColumn<DayTableItem, String> dayTime;
 	@FXML
-	private TableColumn<Showing, String> dayEvent;
+	private TableColumn<DayTableItem, String> dayEvent;
 
-	private Date date = new Date();
+	@FXML
+	private TableView<WeekTableItem> weekTable;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekTime;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekSunEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekMonEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekTueEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekWedEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekThuEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekFriEvent;
+	@FXML
+	private TableColumn<WeekTableItem, String> weekSatEvent;
+
+
+	private CalendarDate date = new CalendarDate();
 	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 	public void initialize(URL url, ResourceBundle rb) {
@@ -84,6 +104,7 @@ public class CalendarProgramController implements Initializable {
 				ItemSelected.setRow(row);
 				ItemSelected.setCol(column);
 				refreshDayPane(row, column);
+				refreshWeekPane(row, column);
 			}
 		}
 	}
@@ -236,6 +257,7 @@ public class CalendarProgramController implements Initializable {
 	}
 
 	public void refreshDayPane(int row, int col) {
+
 		Node result = null;
 		ObservableList<Node> childrens = calendarGrid.getChildren();
 
@@ -250,11 +272,11 @@ public class CalendarProgramController implements Initializable {
 		String num[] = nodestring.split("'");
 		int day = Integer.parseInt(num[1]);
 		
-		ObservableList<Showing> data = initializedDayView(day);
-		dayTime.setCellValueFactory(new PropertyValueFactory<Showing, String>("time"));
-		dayEvent.setCellValueFactory(new PropertyValueFactory<Showing, String>("event"));
+		ObservableList<DayTableItem> data = initializeDayView(day);
+		dayTime.setCellValueFactory(new PropertyValueFactory<DayTableItem, String>("time"));
+		dayEvent.setCellValueFactory(new PropertyValueFactory<DayTableItem, String>("event"));
 		dayEvent.setCellFactory(column -> {
-			return new TableCell<Showing, String>() {
+			return new TableCell<DayTableItem, String>() {
 				@Override
 				protected void updateItem(String event, boolean empty) {
 					super.updateItem(event, empty);
@@ -264,7 +286,7 @@ public class CalendarProgramController implements Initializable {
 						setStyle("");
 					} else {
 						setText(event);
-						Showing currentItem = getTableView().getItems().get(getIndex());
+						DayTableItem currentItem = getTableView().getItems().get(getIndex());
 						if (currentItem.getColor() != null) {
 							setTextFill(Color.WHITE);
 							if (currentItem.getColor() == Color.BLUE)
@@ -295,10 +317,10 @@ public class CalendarProgramController implements Initializable {
 			Integer colIndex = GridPane.getColumnIndex(target);
 			Integer rowIndex = GridPane.getRowIndex(target);
 			refreshAgendaPane(rowIndex.intValue(), colIndex.intValue());
+			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
+			refreshWeekPane(rowIndex.intValue(), colIndex.intValue());
 			ItemSelected.setRow(rowIndex.intValue());
 			ItemSelected.setCol(colIndex.intValue());
-			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
-
 		} catch (NullPointerException ex) {
 			System.out.println("Null location!");
 		}
@@ -338,14 +360,16 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	public void checkBoxAction() {
 		refreshAgendaPane(ItemSelected.getRow(), ItemSelected.getCol());
+		refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
+		refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
 	}
 
 
-	public ObservableList<Showing> initializedDayView(int dayToDisplay) {
+	public ObservableList<DayTableItem> initializeDayView(int dayToDisplay) {
 		ArrayList<CalendarItem> items = CalendarItems.getItems();
 		ArrayList<CalendarItem> itemsToDisplay = new ArrayList<CalendarItem>();
 
-		ArrayList<Showing> toTableItems = new ArrayList<>();
+		ArrayList<DayTableItem> toTableItems = new ArrayList<>();
 
 		int month = 0;
 
@@ -358,13 +382,13 @@ public class CalendarProgramController implements Initializable {
 			for (int min = 0; min <= 30; min+=30) {
 
 				if (min < 30) {
-					toTableItems.add(new Showing(hour + ":" + String.format("%02d", min), ""));
+					toTableItems.add(new DayTableItem(hour + ":" + String.format("%02d", min), ""));
 					toTableItems.get(toTableItems.size()-1).setValueStartHour(hour);
 					toTableItems.get(toTableItems.size()-1).setValueStartMin(min);
 					toTableItems.get(toTableItems.size()-1).setValueEndHour(hour);
 					toTableItems.get(toTableItems.size()-1).setValueEndMin(min+29);
 				} else {
-					toTableItems.add(new Showing("", ""));
+					toTableItems.add(new DayTableItem("", ""));
 					toTableItems.get(toTableItems.size() - 1).setValueStartHour(hour);
 					toTableItems.get(toTableItems.size() - 1).setValueStartMin(min);
 					toTableItems.get(toTableItems.size() - 1).setValueEndHour(hour);
@@ -373,8 +397,12 @@ public class CalendarProgramController implements Initializable {
 			}
 
 		for (CalendarItem item : items) {
-			if (item.getMonth() == month && item.getDay() == dayToDisplay && item.getYear() == Integer.parseInt(yearLabel.getText()))
-				itemsToDisplay.add(item);
+			if (item.getMonth() == month && item.getDay() == dayToDisplay && item.getYear() == Integer.parseInt(yearLabel.getText())) {
+				if (eventCheck.isSelected() && item instanceof Event)
+					itemsToDisplay.add(item);
+				else if (taskCheck.isSelected() && item instanceof Task)
+					itemsToDisplay.add(item);
+			}
 		}
 
 		itemsToDisplay.sort(Comparator.comparingInt(CalendarItem::getStartHour)
@@ -404,7 +432,7 @@ public class CalendarProgramController implements Initializable {
 				endMin = item.getEndMinute();
 			}
 
-			for (Showing displayTime: toTableItems) {
+			for (DayTableItem displayTime: toTableItems) {
 				if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin &&
 						displayTime.getValueEndHour() == endHour && displayTime.getValueEndMin() == endMin) {
 					displayTime.setEvent(item.getTitle());
@@ -449,6 +477,445 @@ public class CalendarProgramController implements Initializable {
 
 
 	public void refreshWeekPane(int row, int col) {
+		Date dateForWeek = new Date();
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
+		SimpleDateFormat monthDeterminer = new SimpleDateFormat("M");
 
+		Node result = null;
+		ObservableList<Node> childrens = calendarGrid.getChildren();
+
+		for (Node node : childrens) {
+			if (calendarGrid.getRowIndex(node) == row && calendarGrid.getColumnIndex(node) == col) {
+				result = node;
+				break;
+			}
+		}
+
+		int month = 0;
+
+		for (int m = 0; m < months.length; m++) {
+			if (monthLabel.getText().compareTo(months[m]) == 0)
+				month = m + 1;
+		}
+
+		String nodestring = result.toString();
+		String num[] = nodestring.split("'");
+		int day = Integer.parseInt(num[1]);
+
+		cal.set(Calendar.MONTH, month-1);
+		cal.set(Calendar.DATE, day);
+		cal.set(Calendar.YEAR, Integer.parseInt(yearLabel.getText()));
+
+		int startWeekValue = -(cal.get(Calendar.DAY_OF_WEEK) - 1);
+
+		cal.add(Calendar.DATE, startWeekValue);
+
+		int monthCompare = Integer.parseInt(monthDeterminer.format(cal.getTime()));
+
+		do {
+			if (monthCompare != month) {
+				cal.add(Calendar.DATE, 1);
+				monthCompare = Integer.parseInt(monthDeterminer.format(cal.getTime()));
+			}
+		} while (monthCompare != month);
+
+		ObservableList<WeekTableItem> data = initializeWeekView(cal);
+		weekTime.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("time"));
+		weekSunEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("sunEvent"));
+		weekMonEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("monEvent"));
+		weekTueEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("tueEvent"));
+		weekWedEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("wedEvent"));
+		weekThuEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("thuEvent"));
+		weekFriEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("friEvent"));
+		weekSatEvent.setCellValueFactory(new PropertyValueFactory<WeekTableItem, String>("satEvent"));
+
+		weekSunEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String sunEvent, boolean empty) {
+					super.updateItem(sunEvent, empty);
+
+					if (sunEvent == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(sunEvent);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getSunColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getSunColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekMonEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String monEvent, boolean empty) {
+					super.updateItem(monEvent, empty);
+
+					if (monEvent == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(monEvent);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getMonColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getMonColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekTueEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String tueEvent, boolean empty) {
+					super.updateItem(tueEvent, empty);
+
+					if (tueEvent == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(tueEvent);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getTueColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getTueColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekWedEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String wedEvent, boolean empty) {
+					super.updateItem(wedEvent, empty);
+
+					if (wedEvent == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(wedEvent);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getWedColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getWedColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekThuEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String event, boolean empty) {
+					super.updateItem(event, empty);
+
+					if (event == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(event);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getThuColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getThuColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekFriEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String event, boolean empty) {
+					super.updateItem(event, empty);
+
+					if (event == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(event);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getFriColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getFriColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+
+		weekSatEvent.setCellFactory(column -> {
+			return new TableCell<WeekTableItem, String>() {
+				@Override
+				protected void updateItem(String satEvent, boolean empty) {
+					super.updateItem(satEvent, empty);
+
+					if (satEvent == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						setText(satEvent);
+						WeekTableItem currentItem = getTableView().getItems().get(getIndex());
+						if (currentItem.getSatColor() != null) {
+							setTextFill(Color.WHITE);
+							if (currentItem.getSatColor() == Color.BLUE)
+								setStyle("-fx-background-color: blue");
+							else
+								setStyle("-fx-background-color: green");
+						} else {
+							setTextFill(Color.BLACK);
+							setStyle("");
+						}
+					}
+				}
+			};
+		});
+		weekTable.setItems(data);
 	}
+
+
+	public ObservableList<WeekTableItem> initializeWeekView(Calendar forWeekCalendar) {
+		ArrayList<CalendarItem> items = CalendarItems.getItems();
+		ArrayList<CalendarItem> itemsToDisplay = new ArrayList<CalendarItem>();
+
+		ArrayList<WeekTableItem> toTableItems = new ArrayList<>();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
+		SimpleDateFormat monthDeterminer = new SimpleDateFormat("M");
+
+		int month = Integer.parseInt(monthDeterminer.format(forWeekCalendar.getTime()));
+
+		int startDay = forWeekCalendar.get(Calendar.DATE);
+		String[] date = sdf.format(forWeekCalendar.getTime()).split("\\s+");
+		int endDay = forWeekCalendar.get(Calendar.DATE);
+
+		while (!date[0].equalsIgnoreCase("Sat")) {
+			forWeekCalendar.add(Calendar.DATE, 1);
+			date = sdf.format(forWeekCalendar.getTime()).split("\\s+");
+			endDay = Integer.parseInt(date[2]);
+		}
+
+		toTableItems.add(new WeekTableItem(""));
+
+		for (int hour = 0; hour <= 23; hour++)
+			for (int min = 0; min <= 30; min+=30) {
+
+				if (min < 30) {
+					toTableItems.add(new WeekTableItem(hour + ":" + String.format("%02d", min)));
+					toTableItems.get(toTableItems.size()-1).setValueStartHour(hour);
+					toTableItems.get(toTableItems.size()-1).setValueStartMin(min);
+					toTableItems.get(toTableItems.size()-1).setValueEndHour(hour);
+					toTableItems.get(toTableItems.size()-1).setValueEndMin(min+29);
+				} else {
+					toTableItems.add(new WeekTableItem(""));
+					toTableItems.get(toTableItems.size() - 1).setValueStartHour(hour);
+					toTableItems.get(toTableItems.size() - 1).setValueStartMin(min);
+					toTableItems.get(toTableItems.size() - 1).setValueEndHour(hour);
+					toTableItems.get(toTableItems.size() - 1).setValueEndMin(59);
+				}
+			}
+
+		for (CalendarItem item : items) {
+			if (item.getMonth() == month && (item.getDay() >= startDay && item.getDay() <= endDay)
+					&& item.getYear() == Integer.parseInt(yearLabel.getText())) {
+				if (eventCheck.isSelected() && item instanceof Event)
+					itemsToDisplay.add(item);
+				else if (taskCheck.isSelected() && item instanceof Task)
+					itemsToDisplay.add(item);
+			}
+		}
+
+		itemsToDisplay.sort(Comparator.comparingInt(CalendarItem::getStartHour)
+				.thenComparingInt(CalendarItem::getStartMinute));
+
+		int monDate = 0, tueDate = 0, wedDate = 0, thuDate = 0, friDate = 0, satDate = 0, sunDate = 0;
+
+		forWeekCalendar.set(Integer.parseInt(yearLabel.getText()), month-1, startDay);
+		String compareDay = sdf.format(forWeekCalendar.getTime()).substring(0,3);
+
+		do {
+			if (month == Integer.parseInt(monthDeterminer.format(forWeekCalendar.getTime()))) {
+				switch (compareDay) {
+					case "Sun":
+						sunDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Mon":
+						monDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Tue":
+						tueDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Wed":
+						wedDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Thu":
+						thuDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Fri":
+						friDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+					case "Sat":
+						satDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+						break;
+				}
+
+				forWeekCalendar.add(Calendar.DATE, 1);
+				compareDay = sdf.format(forWeekCalendar.getTime()).substring(0, 3);
+			} else
+				break;
+		} while (!compareDay.equalsIgnoreCase("Sat"));
+
+		if (month == Integer.parseInt(monthDeterminer.format(forWeekCalendar.getTime())))
+			satDate = Integer.parseInt(sdf.format(forWeekCalendar.getTime()).substring(8));
+
+		if (sunDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(sunDate), "Sun");
+		if (monDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(monDate), "Mon");
+		if (tueDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(tueDate), "Tue");
+		if (wedDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(wedDate), "Wed");
+		if (thuDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(thuDate), "Thu");
+		if (friDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(friDate), "Fri");
+		if (satDate > 0)
+			toTableItems.get(0).setEvent(Integer.toString(satDate), "Sat");
+
+		for (CalendarItem item: itemsToDisplay) {
+			int startHour = item.getStartHour();
+			int startMin = item.getStartMinute();
+			int endHour;
+			int endMin;
+
+			if (startHour == item.getEndHour() && startMin == item.getEndMinute()) {
+				endHour = item.getEndHour();
+
+				if (item.getEndMinute() == 0)
+					endMin = 29;
+				else
+					endMin = 59;
+			} else if (item.getEndMinute() == 00) {
+				endHour = item.getEndHour() - 1;
+				endMin = 59;
+			} else if (item.getEndMinute() == 30) {
+				endHour = item.getEndHour();
+				endMin = 29;
+			} else {
+				endHour = item.getEndHour();
+				endMin = item.getEndMinute();
+			}
+
+			String dayOfItem = null;
+
+			if (sunDate == item.getDay()) {
+				dayOfItem = "Sun";
+			} else if (monDate == item.getDay()) {
+				dayOfItem = "Mon";
+			} else if (tueDate == item.getDay()) {
+				dayOfItem = "Tue";
+			} else if (wedDate == item.getDay()) {
+				dayOfItem = "Wed";
+			} else if (thuDate == item.getDay()) {
+				dayOfItem = "Thu";
+			} else if (friDate == item.getDay()) {
+				dayOfItem = "Fri";
+			} else if (satDate == item.getDay()) {
+				dayOfItem = "Sat";
+			}
+
+			for (WeekTableItem displayTime: toTableItems) {
+				if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin &&
+						displayTime.getValueEndHour() == endHour && displayTime.getValueEndMin() == endMin) {
+
+						displayTime.setEvent(item.getTitle(), dayOfItem);
+
+						if (item instanceof Event)
+							displayTime.setColor(Color.BLUE, dayOfItem);
+						else
+							displayTime.setColor(Color.GREEN, dayOfItem);
+
+						break;
+				} else if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin) {
+						displayTime.setEvent(item.getTitle(), dayOfItem);
+
+						if (item instanceof Event)
+							displayTime.setColor(Color.BLUE, dayOfItem);
+						else
+							displayTime.setColor(Color.GREEN, dayOfItem);
+				} else {
+					if (displayTime.getValueStartHour() >= startHour && displayTime.getValueEndHour() <= endHour) {
+						if (displayTime.getValueEndHour() == endHour && displayTime.getValueEndMin() == endMin) {
+								displayTime.setEvent(" ", dayOfItem);
+
+								if (item instanceof Event)
+									displayTime.setColor(Color.BLUE, dayOfItem);
+								else
+									displayTime.setColor(Color.GREEN, dayOfItem);
+								break;
+						} else {
+								displayTime.setEvent(" ", dayOfItem);
+
+								if (item instanceof Event)
+									displayTime.setColor(Color.BLUE, dayOfItem);
+								else
+									displayTime.setColor(Color.GREEN, dayOfItem);
+						}
+					}
+				}
+			}
+		}
+
+		return FXCollections.observableArrayList(toTableItems);
+	}
+
 }

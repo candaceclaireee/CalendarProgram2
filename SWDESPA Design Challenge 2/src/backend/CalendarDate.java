@@ -2,11 +2,11 @@ package backend;
 
 import java.util.GregorianCalendar;
 
-public class Date {
+public class CalendarDate {
 
 	    private static int yearBound, monthBound, dayBound, yearToday, monthToday, dayToday;
 
-	    public Date(){
+	    public CalendarDate(){
 			GregorianCalendar cal = new GregorianCalendar();
 			dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
 			monthBound = cal.get(GregorianCalendar.MONTH);
