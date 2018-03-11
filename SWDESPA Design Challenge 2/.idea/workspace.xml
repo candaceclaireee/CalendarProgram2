@@ -342,7 +342,7 @@
       <workItem from="1520506046625" duration="2326000" />
       <workItem from="1520644329112" duration="25338000" />
       <workItem from="1520702235069" duration="282000" />
-      <workItem from="1520702570384" duration="19009000" />
+      <workItem from="1520702570384" duration="19018000" />
     </task>
     <task id="LOCAL-00001" summary="Added Day View.">
       <created>1520351728232</created>
@@ -365,11 +365,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520750882992</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fully functional (with slightly error on displaying the colors) Week View and Day View.">
+      <created>1520750902999</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1520750902999</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93419000" />
+    <option name="totallyTimeSpent" value="93428000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
