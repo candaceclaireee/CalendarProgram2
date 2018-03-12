@@ -22,7 +22,7 @@ public class Driver extends Application {
 
         DataParser parser = new CSVDataParser();
         parser.parseData();
-            	
+
         launch(args);
     }
     

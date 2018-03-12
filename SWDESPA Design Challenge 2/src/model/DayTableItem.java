@@ -12,6 +12,7 @@ public class DayTableItem {
     private int valueEndHour;
     private int valueStartMin;
     private int valueEndMin;
+    // private boolean isEnableDone;
 
     public DayTableItem(String time, String event) {
         this.time = new SimpleStringProperty(time);
@@ -74,4 +75,14 @@ public class DayTableItem {
     public void setValueEndMin(int valueEndMin) {
         this.valueEndMin = valueEndMin;
     }
+
+    /*
+    public boolean isEnableDone() {
+        return isEnableDone;
+    }
+
+    public void setEnableDone(boolean enableDone) {
+        isEnableDone = enableDone;
+    }
+    */
 }
