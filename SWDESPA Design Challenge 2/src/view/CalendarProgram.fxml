@@ -26,7 +26,7 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bisque">
                      <children>
-                        <TableView fx:id="dayTable" layoutX="238.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="443.0">
+                        <TableView fx:id="dayTable" layoutX="238.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="443.0">
                           <columns>
                             <TableColumn fx:id="dayTime" editable="false" maxWidth="119.0" minWidth="102.0" prefWidth="102.0" resizable="false" sortable="false" text="Time" />
                             <TableColumn fx:id="dayEvent" editable="false" maxWidth="348.0" minWidth="284.0" prefWidth="348.0" resizable="false" sortable="false" text="Event" />
@@ -38,7 +38,7 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="weekTable" layoutX="238.0" layoutY="25.0" prefHeight="360.0" prefWidth="443.0">
+                        <TableView fx:id="weekTable" layoutX="238.0" layoutY="45.0" prefHeight="340.0" prefWidth="443.0">
                           <columns>
                             <TableColumn fx:id="weekTime" editable="false" maxWidth="68.0" prefWidth="59.0" resizable="false" sortable="false" text="Time" />
                             <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Sun" />
@@ -63,7 +63,7 @@
                               <Font name="System Bold" size="10.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="agendaListView" layoutX="238.0" layoutY="26.0" prefHeight="332.0" prefWidth="443.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
+                        <ListView fx:id="agendaListView" layoutX="238.0" layoutY="45.0" prefHeight="310.0" prefWidth="443.0" style="-fx-border-color:#0475ce; -fx-border-width: 2; -fx-border-style: solid;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -73,6 +73,11 @@
                               <Font name="System Bold" size="10.0" />
                            </font>
                         </Button>
+                        <Label fx:id="remainingLabel" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="240.0" layoutY="360.0" text="You have n tasks remaining">
+                           <font>
+                              <Font name="Calibri Light" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </content>
@@ -149,6 +154,11 @@
          </font>
       </Button>
       <Label fx:id="dateTodayLabel" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="152.0" layoutY="6.0" text="Today is">
+         <font>
+            <Font name="Calibri Light" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateSelectLabel" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="240.0" layoutY="52.0" text="Events and Tasks For March 12, 2018">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font>

@@ -34,7 +34,7 @@ public class CalendarProgramController implements Initializable {
 	@FXML
 	private GridPane calendarGrid;
 	@FXML
-	private Label monthLabel, yearLabel, dateTodayLabel;
+	private Label monthLabel, yearLabel, dateTodayLabel, remainingLabel, dateSelectLabel;
 	@FXML
 	private Button createButton, nextButton, prevButton, doneButton, removeButton;
 	@FXML
@@ -122,7 +122,8 @@ public class CalendarProgramController implements Initializable {
 		String nodestring = result.toString();
 		String num[] = nodestring.split("'");
 		int day = Integer.parseInt(num[1]);
-
+		int remainingTasks = 0 ;
+		
 		ObservableList<String> itemsForTheDay = FXCollections.observableArrayList();
 
 		for (int x = 0; x < model.getItemsSize(); x++) {
@@ -135,9 +136,16 @@ public class CalendarProgramController implements Initializable {
 					if (monthLabel.getText().compareTo(months[m]) == 0)
 						month = m + 1;
 				}
-
+				
 				if (item.getMonth() == month) {
 					if (item.getDay() == day) {
+						
+						if (item instanceof Task && item.isDone() == false) {
+							remainingTasks++; 
+						}
+						
+						dateSelectLabel.setText("Events and Tasks For "+  months[month-1] + " " + day + ", " + Integer.parseInt(yearLabel.getText()));
+						
 						if (eventCheck.isSelected() == false && taskCheck.isSelected() == true) {
 							if (item instanceof Task) {
 								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
@@ -158,14 +166,14 @@ public class CalendarProgramController implements Initializable {
 							} else {
 								itemsForTheDay.add((item.getStartHour() < 10 ? "0" : "") + item.getStartHour() + ":" + (item.getStartMinute() < 10 ? "0" : "")
 										+ item.getStartMinute() + "    " + item.getTitle());
-							}
+							}//
 						}
 					}
 				}
 				
 			}
 		}
-		
+		remainingLabel.setText("You have " + remainingTasks + " task/s remaining");
 		agendaListView.setItems(itemsForTheDay.sorted());
 		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
@@ -213,6 +221,7 @@ public class CalendarProgramController implements Initializable {
 									cell.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
 									item.setIsDone(true);
 
+	            	    			refreshAgendaPane(model.getRow(), model.getCol());
 	            	    			refreshDayPane(model.getRow(), model.getCol());
 	            	    			refreshWeekPane(model.getRow(), model.getCol());
 									CSVDataParser csv = new CSVDataParser();
@@ -232,7 +241,8 @@ public class CalendarProgramController implements Initializable {
             	    		if (model.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
             	    			model.removeItem(item);
             	    			itemsForTheDay.remove(itemsForTheDay.remove(model.getSelected()));
-
+            	    			
+            	    		  refreshAgendaPane(model.getRow(), model.getCol());
             	    		  refreshDayPane(model.getRow(), model.getCol());
             	    		  refreshWeekPane(model.getRow(), model.getCol());
             	    		  CSVDataParser csv = new CSVDataParser();
