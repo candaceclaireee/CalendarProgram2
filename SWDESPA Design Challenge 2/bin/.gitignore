@@ -1,7 +1,4 @@
-/backend/
-/gui/
-/parsers/
-/sample_files/
-/model/
 /controller/
+/model/
+/sample_files/
 /view/

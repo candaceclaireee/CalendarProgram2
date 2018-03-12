@@ -68,8 +68,10 @@ public class CalendarProgramController implements Initializable {
 
 	private CalendarDate date = new CalendarDate();
 	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
+	private Model model;
+	
 	public void initialize(URL url, ResourceBundle rb) {
+		
 		dateTodayLabel.setText("Today is " + months[date.getMonthToday()] + " " + date.getDayToday() + ", " + date.getYearToday());
 		eventCheck.setSelected(true);
 		taskCheck.setSelected(true);	
@@ -101,7 +103,7 @@ public class CalendarProgramController implements Initializable {
 				refreshAgendaPane(row, column);
 				refreshDayPane(row, column);
 				refreshWeekPane(row, column);
-				ItemSelected.setRowCol(row, column);
+				model.setRowCol(row, column);
 			}
 		}
 	}
@@ -123,9 +125,8 @@ public class CalendarProgramController implements Initializable {
 
 		ObservableList<String> itemsForTheDay = FXCollections.observableArrayList();
 
-		CalendarItems items = new CalendarItems();
-		for (int x = 0; x < items.getItemsSize(); x++) {
-			CalendarItem item = CalendarItems.getItems().get(x);
+		for (int x = 0; x < model.getItemsSize(); x++) {
+			CalendarItem item = model.getItems().get(x);
 
 			if (item.getYear() == Integer.parseInt(yearLabel.getText())) {
 
@@ -164,6 +165,7 @@ public class CalendarProgramController implements Initializable {
 				
 			}
 		}
+		
 		agendaListView.setItems(itemsForTheDay.sorted());
 		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
@@ -187,8 +189,8 @@ public class CalendarProgramController implements Initializable {
 								this.setTextFill(Color.GREEN);
 								this.setStyle("-fx-font-size: 15;");
 							}
-							for (int i =0; i<CalendarItems.getItemsSize(); i++) {
-								CalendarItem item =CalendarItems.getItems().get(i);
+							for (int i =0; i<model.getItemsSize(); i++) {
+								CalendarItem item =model.getItems().get(i);
 								if (s.split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 									if (item.isDone() == true) {
 										this.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
@@ -204,15 +206,15 @@ public class CalendarProgramController implements Initializable {
             	    @Override
             	    public void handle(ActionEvent event) {
 
-            	    	for (int i =0; i<CalendarItems.getItemsSize(); i++) {
-							CalendarItem item =CalendarItems.getItems().get(i);
-							if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
+            	    	for (int i =0; i<model.getItemsSize(); i++) {
+							CalendarItem item =model.getItems().get(i);
+							if (model.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 								if (item.isDone() == false) {
 									cell.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
 									item.setIsDone(true);
 
-	            	    			refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
-	            	    			refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
+	            	    			refreshDayPane(model.getRow(), model.getCol());
+	            	    			refreshWeekPane(model.getRow(), model.getCol());
 									CSVDataParser csv = new CSVDataParser();
 									csv.writeData();
 								}
@@ -225,14 +227,14 @@ public class CalendarProgramController implements Initializable {
             	EventHandler<ActionEvent> removeItem = new EventHandler<ActionEvent>() {
             	    @Override
             	    public void handle(ActionEvent event) {
-            	    	for (int i=0; i<CalendarItems.getItemsSize(); i++) {
-            	    		CalendarItem item = CalendarItems.getItems().get(i);
-            	    		if (ItemSelected.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
-            	    			CalendarItems.removeItem(item);
-            	    			itemsForTheDay.remove(itemsForTheDay.remove(ItemSelected.getSelected()));
+            	    	for (int i=0; i<model.getItemsSize(); i++) {
+            	    		CalendarItem item = model.getItems().get(i);
+            	    		if (model.getSelected().split("    ")[1].compareTo(item.getTitle()) == 0) {
+            	    			model.removeItem(item);
+            	    			itemsForTheDay.remove(itemsForTheDay.remove(model.getSelected()));
 
-            	    		  refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
-            	    		  refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
+            	    		  refreshDayPane(model.getRow(), model.getCol());
+            	    		  refreshWeekPane(model.getRow(), model.getCol());
             	    		  CSVDataParser csv = new CSVDataParser();
           					  csv.writeData();
             	    		}
@@ -244,7 +246,7 @@ public class CalendarProgramController implements Initializable {
 		            public void handle( MouseEvent event )
 		            {
 		                if ( cell.getItem() != null ) {
-		                    ItemSelected.setSelected(cell.getItem().toString());
+		                	model.setSelected(cell.getItem().toString());
 		                	doneButton.setVisible(true);
 		                	doneButton.setOnAction(markAsDone);
 		                	removeButton.setVisible(true);
@@ -320,7 +322,7 @@ public class CalendarProgramController implements Initializable {
 			refreshAgendaPane(rowIndex.intValue(), colIndex.intValue());
 			refreshDayPane(rowIndex.intValue(), colIndex.intValue());
 			refreshWeekPane(rowIndex.intValue(), colIndex.intValue());
-			ItemSelected.setRowCol(rowIndex.intValue(), colIndex.intValue());
+			model.setRowCol(rowIndex.intValue(), colIndex.intValue());
 		} catch (NullPointerException ex) {
 			System.out.println("Null location!");
 		}
@@ -359,14 +361,14 @@ public class CalendarProgramController implements Initializable {
 
 	@FXML
 	public void checkBoxAction() {
-		refreshAgendaPane(ItemSelected.getRow(), ItemSelected.getCol());
-		refreshDayPane(ItemSelected.getRow(), ItemSelected.getCol());
-		refreshWeekPane(ItemSelected.getRow(), ItemSelected.getCol());
+		refreshAgendaPane(model.getRow(), model.getCol());
+		refreshDayPane(model.getRow(), model.getCol());
+		refreshWeekPane(model.getRow(), model.getCol());
 	}
 
 
 	public ObservableList<DayTableItem> initializeDayView(int dayToDisplay) {
-		ArrayList<CalendarItem> items = CalendarItems.getItems();
+		ArrayList<CalendarItem> items = model.getItems();
 		ArrayList<CalendarItem> itemsToDisplay = new ArrayList<CalendarItem>();
 
 		ArrayList<DayTableItem> toTableItems = new ArrayList<>();
@@ -723,7 +725,7 @@ public class CalendarProgramController implements Initializable {
 
 
 	public ObservableList<WeekTableItem> initializeWeekView(Calendar forWeekCalendar) {
-		ArrayList<CalendarItem> items = CalendarItems.getItems();
+		ArrayList<CalendarItem> items = model.getItems();
 		ArrayList<CalendarItem> itemsToDisplay = new ArrayList<CalendarItem>();
 
 		ArrayList<WeekTableItem> toTableItems = new ArrayList<>();

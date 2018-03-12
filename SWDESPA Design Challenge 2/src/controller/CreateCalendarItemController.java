@@ -25,10 +25,11 @@ public class CreateCalendarItemController implements Initializable{
 	 @FXML private Label dateTodayLabel, toLabel, errorLabel;
 	 @FXML private CheckBox eventCheck, taskCheck;
 	 @FXML private Button discardButton, saveButton;
-	 
-	 private CalendarDate date = new CalendarDate(); //
+	
+	 private CalendarDate date = new CalendarDate(); 
 	 String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-			 
+	 private Model model;		
+	 
 	 public void initialize(URL location, ResourceBundle resources) {
 		 dateTodayLabel.setText("Today is "+months[date.getMonthToday()]+" "+date.getDayToday()+", "+date.getYearToday());
 	     dateLabel.setText(date.getMonthToday()+1+"/"+date.getDayToday()+"/"+date.getYearToday());
@@ -72,7 +73,7 @@ public class CreateCalendarItemController implements Initializable{
 					  if (isValidDateTime(item) == false) {
 						  errorLabel.setText("Oops! You have something at that time.");
 					  } else {
-						  CalendarItems.addEvent(item);
+						  model.addEvent(item);
 	
 						  CSVDataParser csv = new CSVDataParser();
 						  csv.writeData();
@@ -111,7 +112,7 @@ public class CreateCalendarItemController implements Initializable{
 					  if (isValidDateTime(item) == false) {
 						  errorLabel.setText("Oops! You have something at that time.");
 					  } else {
-						  CalendarItems.addTask(item);
+						  model.addTask(item);
 	
 						  CSVDataParser csv = new CSVDataParser();
 						  csv.writeData();
@@ -127,8 +128,8 @@ public class CreateCalendarItemController implements Initializable{
 	 }
 	 
 	 public boolean isValidDateTime(CalendarItem item) {
-		 for (int i=0; i<CalendarItems.getItemsSize(); i++) {
-			 CalendarItem c = CalendarItems.getItems().get(i);
+		 for (int i=0; i<model.getItemsSize(); i++) {
+			 CalendarItem c = model.getItems().get(i);
 			 if (c.getMonth() == item.getMonth() && c.getDay() == item.getDay() && c.getYear() == item.getYear()) {
 
 				 LocalTimeRange range1 = new LocalTimeRange(LocalTime.of(c.getStartHour(), c.getStartMinute()), LocalTime.of(c.getEndHour(), c.getEndMinute()));

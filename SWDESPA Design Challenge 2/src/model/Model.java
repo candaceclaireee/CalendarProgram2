@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
-public class CalendarItems {
+public class Model {
 
 	private static ArrayList<CalendarItem> items = new ArrayList<CalendarItem>();
-
+	public static String itemSelected; 
+	public static int row, col; 
+	
 	public static void addEvent(Event e){
 		items.add(e);
 	}
@@ -37,5 +39,33 @@ public class CalendarItems {
 			System.out.println("AT: " + items.get(i).getStartHour() +":"+ items.get(i).getStartMinute()+ " TO " + items.get(i).getEndHour() + ":"+ items.get(i).getEndMinute() );
 		}
 	}
-}
+	
+	public static void setSelected(String s) {
+		itemSelected = s; 
+	}
+	
+	public static String getSelected() {
+		return itemSelected;
+	}
+	
+	public static void setRowCol(int r, int c) {
+		row = r; 
+		col = c;
+	}
+	
+	public static void setRow(int r) {
+		row = r;
+	}
+	
+	public static void setCol(int c) {
+		col = c; 
+	}
 
+	public static int getRow() {
+		return row;
+	}
+	
+	public static int getCol() {
+		return col;
+	}
+}

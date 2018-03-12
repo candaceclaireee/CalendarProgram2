@@ -3,6 +3,8 @@ package model;
 import java.io.*;
 
 public class CSVDataParser extends DataParser {
+
+	private Model model;
 	
 	public void readData(){
 		try {
@@ -56,8 +58,6 @@ public class CSVDataParser extends DataParser {
 	}
 
 	public void processData() {
-		CalendarItems items = new CalendarItems();
-		
 		for(int i = 0; i < eventlines.size(); i++) {
 			for(int j = 0; j < eventlines.get(i).length; j=j+4) {
 								
@@ -77,7 +77,7 @@ public class CSVDataParser extends DataParser {
 				
 				e.setTitle(eventlines.get(i)[j+3]);
 				
-				items.addEvent(e);
+				model.addEvent(e);
 			}
 		}
 		
@@ -96,7 +96,7 @@ public class CSVDataParser extends DataParser {
 								
 				t.setTitle(tasklines.get(i)[j+2]);
 				t.setIsDone(false);
-				items.addTask(t);
+				model.addTask(t);
 			}
 		}
 
@@ -115,7 +115,7 @@ public class CSVDataParser extends DataParser {
 								
 				t.setTitle(donetasklines.get(i)[j+2]);
 				t.setIsDone(true);
-				items.addTask(t);
+				model.addTask(t);
 			}
 		}
 		
@@ -129,8 +129,8 @@ public class CSVDataParser extends DataParser {
 		String filepathDT = "src\\sample_files\\DoneTasks.csv";
 		
 		try {
-			for (int i=0; i<CalendarItems.getItemsSize(); i++) {
-				CalendarItem item = CalendarItems.getItems().get(i);
+			for (int i=0; i<model.getItemsSize(); i++) {
+				CalendarItem item = model.getItems().get(i);
 				if (item instanceof Event) {
 					lineToWrite = new String[4];
 					lineToWrite[0] = item.getMonth() + "/" + item.getDay() + "/" + item.getYear();
@@ -228,5 +228,6 @@ public class CSVDataParser extends DataParser {
 
 		}
 	}
+	
 	
 }

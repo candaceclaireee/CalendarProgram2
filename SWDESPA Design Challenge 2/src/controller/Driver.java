@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,12 +20,8 @@ public class Driver extends Application {
     
     public static void main(String[] args) {
 
-    	ArrayList<DataParser> parsers = new ArrayList<DataParser>();
-        parsers.add(new CSVDataParser());
-
-        for (DataParser parser: parsers) {
-            parser.parseData();
-        }
+        DataParser parser = new CSVDataParser();
+        parser.parseData();
             	
         launch(args);
     }
