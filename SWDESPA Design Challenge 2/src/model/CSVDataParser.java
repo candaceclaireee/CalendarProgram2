@@ -5,7 +5,7 @@ import java.io.*;
 public class CSVDataParser extends DataParser {
 
 	private Model model;
-	
+
 	public void readData(){
 		try {
 			File f = new File("src\\sample_files\\Events.csv");

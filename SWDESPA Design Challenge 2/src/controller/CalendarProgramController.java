@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -67,6 +69,7 @@ public class CalendarProgramController implements Initializable {
 	private TableColumn<WeekTableItem, String> weekSatEvent;
 
 	private CalendarDate date = new CalendarDate();
+
 	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	private Model model;
 	
@@ -122,6 +125,7 @@ public class CalendarProgramController implements Initializable {
 		String nodestring = result.toString();
 		String num[] = nodestring.split("'");
 		int day = Integer.parseInt(num[1]);
+		int month = 0;
 		int remainingTasks = 0 ;
 		
 		ObservableList<String> itemsForTheDay = FXCollections.observableArrayList();
@@ -131,7 +135,6 @@ public class CalendarProgramController implements Initializable {
 
 			if (item.getYear() == Integer.parseInt(yearLabel.getText())) {
 
-				int month = 0;
 				for (int m = 0; m < months.length; m++) {
 					if (monthLabel.getText().compareTo(months[m]) == 0)
 						month = m + 1;
@@ -143,8 +146,6 @@ public class CalendarProgramController implements Initializable {
 						if (item instanceof Task && item.isDone() == false) {
 							remainingTasks++; 
 						}
-						
-						dateSelectLabel.setText("Events and Tasks For "+  months[month-1] + " " + day + ", " + Integer.parseInt(yearLabel.getText()));
 						
 						if (eventCheck.isSelected() == false && taskCheck.isSelected() == true) {
 							if (item instanceof Task) {
@@ -174,6 +175,8 @@ public class CalendarProgramController implements Initializable {
 			}
 		}
 		remainingLabel.setText("You have " + remainingTasks + " task/s remaining");
+		dateSelectLabel.setText("Events and Tasks For "+  months[month-1] + " " + day + ", " + Integer.parseInt(yearLabel.getText()));
+		
 		agendaListView.setItems(itemsForTheDay.sorted());
 		agendaListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
@@ -196,14 +199,28 @@ public class CalendarProgramController implements Initializable {
 								this.setText(s);
 								this.setTextFill(Color.GREEN);
 								this.setStyle("-fx-font-size: 15;");
-							}
+							} 
 							for (int i =0; i<model.getItemsSize(); i++) {
 								CalendarItem item =model.getItems().get(i);
 								if (s.split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Task) {
 									if (item.isDone() == true) {
 										this.getStylesheets().add(getClass().getResource("../view/strikethrough.css").toExternalForm());
+									} 							
+								}
+
+								if (s.split("    ")[1].compareTo(item.getTitle()) == 0 && item instanceof Event) {
+									if (item.getYear() <= date.getYearToday() && item.getMonth()-1 <= date.getMonthToday() && item.getDay() <= date.getDayToday()) {
+										LocalTime itemTime = LocalTime.of(item.getStartHour(), item.getStartMinute());
+										if (itemTime.isBefore(LocalTime.now())) {
+											this.setText(s);
+											this.setTextFill(Color.GRAY);
+											this.setStyle("-fx-font-size: 15;");
+										}
 									}
 								}
+									
+									
+									
 							}
 						}
 					}
@@ -304,6 +321,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+							else if (currentItem.getColor() == Color.DARKGREY)
+							    setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -426,6 +445,12 @@ public class CalendarProgramController implements Initializable {
 			int endHour;
 			int endMin;
 
+			if (startMin == 0)
+				startHour = item.getStartHour() * 10;
+
+			int startTime = Integer.parseInt(Integer.toString(startHour) + Integer.toString(startMin));
+
+			// First if is for the
 			if (startHour == item.getEndHour() && startMin == item.getEndMinute()) {
 				endHour = item.getEndHour();
 
@@ -433,7 +458,7 @@ public class CalendarProgramController implements Initializable {
 					endMin = 29;
 				else
 					endMin = 59;
-			} else if (item.getEndMinute() == 00) {
+			} else if (item.getEndMinute() == 0) {
 				endHour = item.getEndHour() - 1;
 				endMin = 59;
 			} else if (item.getEndMinute() == 30) {
@@ -444,7 +469,53 @@ public class CalendarProgramController implements Initializable {
 				endMin = item.getEndMinute();
 			}
 
+			int endTime = Integer.parseInt(Integer.toString(endHour) + Integer.toString(endMin));
+
 			for (DayTableItem displayTime: toTableItems) {
+				int displayStartTime = 0;
+
+				if (displayTime.getValueStartMin() == 0)
+					displayStartTime = Integer.parseInt(Integer.toString(displayTime.getValueStartHour() * 10) +
+							Integer.toString(displayTime.getValueStartMin()));
+				else
+					displayStartTime = Integer.parseInt(Integer.toString(displayTime.getValueStartHour()) +
+							Integer.toString(displayTime.getValueStartMin()));
+
+				int displayEndTime = Integer.parseInt(Integer.toString(displayTime.getValueEndHour()) +
+						Integer.toString(displayTime.getValueEndMin()));
+
+				if (displayStartTime == startTime && displayEndTime == endTime) {
+					displayTime.setEvent(item.getTitle());
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE);
+					else if (item instanceof Task && item.isDone() == false)
+						displayTime.setColor(Color.GREEN);
+					else
+					    displayTime.setColor(Color.DARKGREY);
+
+					break;
+				} else if (displayStartTime == startTime) {
+					displayTime.setEvent(item.getTitle());
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE);
+                    else if (item instanceof Task && item.isDone() == false)
+                        displayTime.setColor(Color.GREEN);
+                    else
+                        displayTime.setColor(Color.DARKGREY);
+				} else if (displayStartTime >= startTime && endTime >= displayEndTime) {
+					displayTime.setEvent(" ");
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE);
+                    else if (item instanceof Task && item.isDone() == false)
+                        displayTime.setColor(Color.GREEN);
+                    else
+                        displayTime.setColor(Color.DARKGREY);
+				}
+
+				/*
 				if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin &&
 						displayTime.getValueEndHour() == endHour && displayTime.getValueEndMin() == endMin) {
 					displayTime.setEvent(item.getTitle());
@@ -481,6 +552,7 @@ public class CalendarProgramController implements Initializable {
 								displayTime.setColor(Color.GREEN);
 						}
 				}
+				*/
 			}
 		}
 		return FXCollections.observableArrayList(toTableItems);
@@ -585,6 +657,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getMonColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getMonColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -612,6 +686,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getTueColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getTueColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -639,6 +715,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getWedColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getWedColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -666,6 +744,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getThuColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getThuColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -693,6 +773,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getFriColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getFriColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -720,6 +802,8 @@ public class CalendarProgramController implements Initializable {
 							setTextFill(Color.WHITE);
 							if (currentItem.getSatColor() == Color.BLUE)
 								setStyle("-fx-background-color: blue");
+                            else if (currentItem.getSatColor() == Color.DARKGREY)
+                                setStyle("-fx-background-color: darkgray");
 							else
 								setStyle("-fx-background-color: green");
 						} else {
@@ -849,6 +933,12 @@ public class CalendarProgramController implements Initializable {
 			int endHour;
 			int endMin;
 
+			if (startMin == 0)
+				startHour = item.getStartHour() * 10;
+
+			int startTime = Integer.parseInt(Integer.toString(startHour) + Integer.toString(startMin));
+
+			// First if is for the
 			if (startHour == item.getEndHour() && startMin == item.getEndMinute()) {
 				endHour = item.getEndHour();
 
@@ -856,7 +946,7 @@ public class CalendarProgramController implements Initializable {
 					endMin = 29;
 				else
 					endMin = 59;
-			} else if (item.getEndMinute() == 00) {
+			} else if (item.getEndMinute() == 0) {
 				endHour = item.getEndHour() - 1;
 				endMin = 59;
 			} else if (item.getEndMinute() == 30) {
@@ -866,6 +956,8 @@ public class CalendarProgramController implements Initializable {
 				endHour = item.getEndHour();
 				endMin = item.getEndMinute();
 			}
+
+			int endTime = Integer.parseInt(Integer.toString(endHour) + Integer.toString(endMin));
 
 			String dayOfItem = null;
 
@@ -886,6 +978,49 @@ public class CalendarProgramController implements Initializable {
 			}
 
 			for (WeekTableItem displayTime: toTableItems) {
+				int displayStartTime = 0;
+
+				if (displayTime.getValueStartMin() == 0)
+					displayStartTime = Integer.parseInt(Integer.toString(displayTime.getValueStartHour() * 10) +
+							Integer.toString(displayTime.getValueStartMin()));
+				else
+					displayStartTime = Integer.parseInt(Integer.toString(displayTime.getValueStartHour()) +
+							Integer.toString(displayTime.getValueStartMin()));
+
+				int displayEndTime = Integer.parseInt(Integer.toString(displayTime.getValueEndHour()) +
+						Integer.toString(displayTime.getValueEndMin()));
+
+				if (displayStartTime == startTime && displayEndTime == endTime) {
+					displayTime.setEvent(item.getTitle(), dayOfItem);
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE, dayOfItem);
+                    else if (item instanceof Task && item.isDone() == false)
+                        displayTime.setColor(Color.GREEN, dayOfItem);
+                    else
+                        displayTime.setColor(Color.DARKGREY, dayOfItem);
+					break;
+				} else if (displayStartTime == startTime) {
+					displayTime.setEvent(item.getTitle(), dayOfItem);
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE, dayOfItem);
+                    else if (item instanceof Task && item.isDone() == false)
+                        displayTime.setColor(Color.GREEN, dayOfItem);
+                    else
+                        displayTime.setColor(Color.DARKGREY, dayOfItem);
+				} else if (displayStartTime >= startTime && endTime >= displayEndTime) {
+					displayTime.setEvent(" ", dayOfItem);
+
+					if (item instanceof Event)
+						displayTime.setColor(Color.BLUE, dayOfItem);
+                    else if (item instanceof Task && item.isDone() == false)
+                        displayTime.setColor(Color.GREEN, dayOfItem);
+                    else
+                        displayTime.setColor(Color.DARKGREY, dayOfItem);
+				}
+
+				/*
 				if (displayTime.getTime().equalsIgnoreCase(""))
 					continue;
 				if (displayTime.getValueStartHour() == startHour && displayTime.getValueStartMin() == startMin &&
@@ -926,6 +1061,7 @@ public class CalendarProgramController implements Initializable {
 						}
 					}
 				}
+				*/
 			}
 		}
 

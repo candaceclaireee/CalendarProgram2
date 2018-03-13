@@ -24,6 +24,17 @@ public class WeekTableItem {
     private int valueEndHour;
     private int valueStartMin;
     private int valueEndMin;
+    /*
+    private boolean isEnableSun;
+    private boolean isEnableMon;
+    private boolean isEnableTue;
+    private boolean isEnableWed;
+    private boolean isEnableThu;
+    private boolean isEnableFri;
+    private boolean isEnableSat;
+    */
+
+
 
     public WeekTableItem(String time) {
         this.time = new SimpleStringProperty(time);
