@@ -29,7 +29,7 @@
                         <TableView fx:id="dayTable" layoutX="238.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="443.0">
                           <columns>
                             <TableColumn fx:id="dayTime" editable="false" maxWidth="119.0" minWidth="102.0" prefWidth="102.0" resizable="false" sortable="false" text="Time" />
-                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="348.0" minWidth="284.0" prefWidth="348.0" resizable="false" sortable="false" text="Event" />
+                            <TableColumn fx:id="dayEvent" editable="false" maxWidth="324.0" minWidth="324.0" prefWidth="324.0" resizable="false" sortable="false" text="Event" />
                           </columns>
                         </TableView>
                      </children></Pane>
@@ -40,14 +40,14 @@
                      <children>
                         <TableView fx:id="weekTable" layoutX="238.0" layoutY="45.0" prefHeight="340.0" prefWidth="443.0">
                           <columns>
-                            <TableColumn fx:id="weekTime" editable="false" maxWidth="68.0" prefWidth="59.0" resizable="false" sortable="false" text="Time" />
-                            <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Sun" />
-                              <TableColumn fx:id="weekMonEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Mon" />
-                              <TableColumn fx:id="weekTueEvent" editable="false" maxWidth="78.0" prefWidth="54.0" resizable="false" sortable="false" text="Tue" />
-                              <TableColumn fx:id="weekWedEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Wed" />
-                              <TableColumn fx:id="weekThuEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Thu" />
-                              <TableColumn fx:id="weekFriEvent" editable="false" maxWidth="78.0" prefWidth="55.0" resizable="false" sortable="false" text="Fri" />
-                              <TableColumn fx:id="weekSatEvent" editable="false" maxWidth="78.0" prefWidth="54.0" resizable="false" sortable="false" text="Sat" />
+                            <TableColumn fx:id="weekTime" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Time" />
+                            <TableColumn fx:id="weekSunEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Sun" />
+                              <TableColumn fx:id="weekMonEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Mon" />
+                              <TableColumn fx:id="weekTueEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Tue" />
+                              <TableColumn fx:id="weekWedEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Wed" />
+                              <TableColumn fx:id="weekThuEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Thu" />
+                              <TableColumn fx:id="weekFriEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Fri" />
+                              <TableColumn fx:id="weekSatEvent" editable="false" maxWidth="53.125" minWidth="53.125" prefWidth="53.125" resizable="false" sortable="false" text="Sat" />
                           </columns>
                         </TableView>
                      </children>

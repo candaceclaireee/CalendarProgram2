@@ -3,15 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="647a311f-df58-4853-9751-82c33b1c2089" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/controller/CalendarProgramController.java" afterPath="$PROJECT_DIR$/src/controller/CalendarProgramController.java" />
+      <change beforePath="$PROJECT_DIR$/bin/view/CalendarProgram.fxml" afterPath="$PROJECT_DIR$/bin/view/CalendarProgram.fxml" />
       <change beforePath="$PROJECT_DIR$/src/controller/Driver.java" afterPath="$PROJECT_DIR$/src/controller/Driver.java" />
-      <change beforePath="$PROJECT_DIR$/src/model/CSVDataParser.java" afterPath="$PROJECT_DIR$/src/model/CSVDataParser.java" />
-      <change beforePath="$PROJECT_DIR$/src/model/DataParser.java" afterPath="$PROJECT_DIR$/src/model/DataParser.java" />
-      <change beforePath="$PROJECT_DIR$/src/model/DayTableItem.java" afterPath="$PROJECT_DIR$/src/model/DayTableItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/model/WeekTableItem.java" afterPath="$PROJECT_DIR$/src/model/WeekTableItem.java" />
       <change beforePath="$PROJECT_DIR$/src/sample_files/DoneTasks.csv" afterPath="$PROJECT_DIR$/src/sample_files/DoneTasks.csv" />
-      <change beforePath="$PROJECT_DIR$/src/sample_files/Events.csv" afterPath="$PROJECT_DIR$/src/sample_files/Events.csv" />
       <change beforePath="$PROJECT_DIR$/src/sample_files/Tasks.csv" afterPath="$PROJECT_DIR$/src/sample_files/Tasks.csv" />
+      <change beforePath="$PROJECT_DIR$/src/view/CalendarProgram.fxml" afterPath="$PROJECT_DIR$/src/view/CalendarProgram.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,38 +19,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="750">
-      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="480">
+              <caret line="17" column="34" lean-forward="false" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalendarProgramController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/controller/CalendarProgramController.java">
+      <file leaf-file-name="LocalTimeRange.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/LocalTimeRange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="786" column="53" lean-forward="true" selection-start-line="786" selection-start-column="53" selection-end-line="786" selection-end-column="53" />
-              <folding>
-                <element signature="e#20808#21498#0" expanded="true" />
-                <element signature="e#21497#21498#0" expanded="true" />
-                <element signature="e#21559#22407#0" expanded="true" />
-                <element signature="e#22406#22407#0" expanded="true" />
-                <element signature="e#22468#23316#0" expanded="true" />
-                <element signature="e#23315#23316#0" expanded="true" />
-                <element signature="e#23377#24225#0" expanded="true" />
-                <element signature="e#24224#24225#0" expanded="true" />
-                <element signature="e#24286#25122#0" expanded="true" />
-                <element signature="e#25121#25122#0" expanded="true" />
-                <element signature="e#25183#26019#0" expanded="true" />
-                <element signature="e#26018#26019#0" expanded="true" />
-                <element signature="e#26080#26928#0" expanded="true" />
-                <element signature="e#26927#26928#0" expanded="true" />
-                <element signature="e#27162#27176#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="800">
+              <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,8 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>refreshAgenda</find>
-      <find>checkBoxAction</find>
       <find>forWeek</find>
       <find>weekPane</find>
       <find>initialize</find>
@@ -100,6 +78,8 @@
       <find>dayPane</find>
       <find>strikethrough</find>
       <find>item.isDone</find>
+      <find>format</find>
+      <find>refreshDay</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,12 +103,12 @@
         <option value="$PROJECT_DIR$/src/backend/WeekTableItem.java" />
         <option value="$PROJECT_DIR$/src/gui/CalendarProgramController.java" />
         <option value="$PROJECT_DIR$/src/model/Model.java" />
-        <option value="$PROJECT_DIR$/src/controller/Driver.java" />
         <option value="$PROJECT_DIR$/src/model/DataParser.java" />
         <option value="$PROJECT_DIR$/src/model/CSVDataParser.java" />
         <option value="$PROJECT_DIR$/src/model/WeekTableItem.java" />
         <option value="$PROJECT_DIR$/src/model/DayTableItem.java" />
         <option value="$PROJECT_DIR$/src/controller/CalendarProgramController.java" />
+        <option value="$PROJECT_DIR$/src/controller/Driver.java" />
       </list>
     </option>
   </component>
@@ -159,6 +139,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,6 +170,12 @@
               <item name="SWDESPA Design Challenge 2" type="b2602c69:ProjectViewProjectNode" />
               <item name="SWDESPA Design Challenge 2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sample_files" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SWDESPA Design Challenge 2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SWDESPA Design Challenge 2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -194,9 +183,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,12 +207,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/sample_files/Events.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/sample_files/Tasks.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/.gitignore</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/controller/CalendarProgramController.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/sample_files/Events.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/sample_files/Tasks.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/view/CalendarProgram.fxml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -234,6 +216,10 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/FINAL DC2-UML.dia</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/view/CalendarProgram.fxml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/view/CreateCalendarItem.fxml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/view/strikethrough.css</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -241,6 +227,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/sample_files/Events.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/sample_files/Tasks.csv</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -496,7 +484,10 @@
       <workItem from="1520757766675" duration="111000" />
       <workItem from="1520764010499" duration="1582000" />
       <workItem from="1520825313468" duration="2033000" />
-      <workItem from="1520835741263" duration="9452000" />
+      <workItem from="1520835741263" duration="9631000" />
+      <workItem from="1520904580594" duration="822000" />
+      <workItem from="1520925540343" duration="452000" />
+      <workItem from="1520932225880" duration="248000" />
     </task>
     <task id="LOCAL-00001" summary="Added Day View.">
       <created>1520351728232</created>
@@ -554,11 +545,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520764877498</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Time bug is fixed. When the task is done, it turns into gray in week view and day view.">
+      <created>1520850217914</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1520850217914</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107295000" />
+    <option name="totallyTimeSpent" value="108996000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
@@ -579,7 +577,6 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18880208" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948294" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -591,6 +588,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948294" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,7 +627,8 @@
     <MESSAGE value="Added Day View." />
     <MESSAGE value="Fully functional (with slightly error on displaying the colors) Week View and Day View." />
     <MESSAGE value="Removed the bug that overlaps in Sunday when an event/task of 0:00 is added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the bug that overlaps in Sunday when an event/task of 0:00 is added." />
+    <MESSAGE value="Time bug is fixed. When the task is done, it turns into gray in week view and day view." />
+    <option name="LAST_COMMIT_MESSAGE" value="Time bug is fixed. When the task is done, it turns into gray in week view and day view." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -700,22 +699,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ItemSelected.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/CalendarItems.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ItemSelected.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/CalendarItems.java" />
     <entry file="file://$PROJECT_DIR$/src/model/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -764,14 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/LocalTimeRange.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/CalendarDate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -785,107 +762,99 @@
         <state relative-caret-position="-8531">
           <caret line="34" column="6" lean-forward="false" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
           <folding>
-            <element signature="e#2815#2816#0" expanded="true" />
-            <element signature="e#2848#2849#0" expanded="true" />
-            <element signature="e#2898#2899#0" expanded="true" />
-            <element signature="e#2925#2926#0" expanded="true" />
-            <element signature="e#2965#2966#0" expanded="true" />
-            <element signature="e#3000#3001#0" expanded="true" />
-            <element signature="e#3035#3036#0" expanded="true" />
-            <element signature="e#3072#3073#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
-            <element signature="e#3157#3158#0" expanded="true" />
-            <element signature="e#3205#3206#0" expanded="true" />
-            <element signature="e#3248#3249#0" expanded="true" />
-            <element signature="e#3283#3284#0" expanded="true" />
-            <element signature="e#3320#3321#0" expanded="true" />
-            <element signature="e#3374#3375#0" expanded="true" />
-            <element signature="e#3405#3406#0" expanded="true" />
-            <element signature="e#3453#3454#0" expanded="true" />
-            <element signature="e#3496#3497#0" expanded="true" />
-            <element signature="e#3531#3532#0" expanded="true" />
-            <element signature="e#3568#3569#0" expanded="true" />
-            <element signature="e#3622#3623#0" expanded="true" />
-            <element signature="e#3653#3654#0" expanded="true" />
-            <element signature="e#3701#3702#0" expanded="true" />
-            <element signature="e#3744#3745#0" expanded="true" />
-            <element signature="e#3779#3780#0" expanded="true" />
-            <element signature="e#3816#3817#0" expanded="true" />
-            <element signature="e#3870#3871#0" expanded="true" />
-            <element signature="e#3901#3902#0" expanded="true" />
-            <element signature="e#3949#3950#0" expanded="true" />
-            <element signature="e#3992#3993#0" expanded="true" />
-            <element signature="e#4027#4028#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4118#4119#0" expanded="true" />
-            <element signature="e#4149#4150#0" expanded="true" />
-            <element signature="e#4197#4198#0" expanded="true" />
-            <element signature="e#4240#4241#0" expanded="true" />
-            <element signature="e#4275#4276#0" expanded="true" />
-            <element signature="e#4312#4313#0" expanded="true" />
-            <element signature="e#4366#4367#0" expanded="true" />
-            <element signature="e#4397#4398#0" expanded="true" />
-            <element signature="e#4445#4446#0" expanded="true" />
-            <element signature="e#4488#4489#0" expanded="true" />
-            <element signature="e#4523#4524#0" expanded="true" />
-            <element signature="e#4560#4561#0" expanded="true" />
-            <element signature="e#4614#4615#0" expanded="true" />
-            <element signature="e#4645#4646#0" expanded="true" />
-            <element signature="e#4693#4694#0" expanded="true" />
-            <element signature="e#4736#4737#0" expanded="true" />
-            <element signature="e#4770#4771#0" expanded="true" />
-            <element signature="e#4801#4802#0" expanded="true" />
-            <element signature="e#4848#4849#0" expanded="true" />
-            <element signature="e#4888#4889#0" expanded="true" />
-            <element signature="e#4922#4923#0" expanded="true" />
-            <element signature="e#4953#4954#0" expanded="true" />
-            <element signature="e#5000#5001#0" expanded="true" />
-            <element signature="e#5040#5041#0" expanded="true" />
-            <element signature="e#5074#5075#0" expanded="true" />
-            <element signature="e#5105#5106#0" expanded="true" />
-            <element signature="e#5152#5153#0" expanded="true" />
-            <element signature="e#5192#5193#0" expanded="true" />
-            <element signature="e#5226#5227#0" expanded="true" />
-            <element signature="e#5257#5258#0" expanded="true" />
-            <element signature="e#5304#5305#0" expanded="true" />
-            <element signature="e#5344#5345#0" expanded="true" />
-            <element signature="e#5378#5379#0" expanded="true" />
-            <element signature="e#5409#5410#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5496#5497#0" expanded="true" />
-            <element signature="e#5530#5531#0" expanded="true" />
-            <element signature="e#5561#5562#0" expanded="true" />
-            <element signature="e#5608#5609#0" expanded="true" />
-            <element signature="e#5648#5649#0" expanded="true" />
-            <element signature="e#5682#5683#0" expanded="true" />
-            <element signature="e#5713#5714#0" expanded="true" />
-            <element signature="e#5760#5761#0" expanded="true" />
-            <element signature="e#5800#5801#0" expanded="true" />
-            <element signature="e#5838#5839#0" expanded="true" />
-            <element signature="e#5875#5876#0" expanded="true" />
-            <element signature="e#5932#5933#0" expanded="true" />
-            <element signature="e#5984#5985#0" expanded="true" />
-            <element signature="e#6020#6021#0" expanded="true" />
-            <element signature="e#6055#6056#0" expanded="true" />
-            <element signature="e#6108#6109#0" expanded="true" />
-            <element signature="e#6156#6157#0" expanded="true" />
-            <element signature="e#6193#6194#0" expanded="true" />
-            <element signature="e#6229#6230#0" expanded="true" />
-            <element signature="e#6284#6285#0" expanded="true" />
-            <element signature="e#6334#6335#0" expanded="true" />
-            <element signature="e#6369#6370#0" expanded="true" />
-            <element signature="e#6403#6404#0" expanded="true" />
-            <element signature="e#6454#6455#0" expanded="true" />
-            <element signature="e#6500#6501#0" expanded="true" />
+            <element signature="e#2815#2816#0" expanded="false" />
+            <element signature="e#2848#2849#0" expanded="false" />
+            <element signature="e#2898#2899#0" expanded="false" />
+            <element signature="e#2925#2926#0" expanded="false" />
+            <element signature="e#2965#2966#0" expanded="false" />
+            <element signature="e#3000#3001#0" expanded="false" />
+            <element signature="e#3035#3036#0" expanded="false" />
+            <element signature="e#3072#3073#0" expanded="false" />
+            <element signature="e#3126#3127#0" expanded="false" />
+            <element signature="e#3157#3158#0" expanded="false" />
+            <element signature="e#3205#3206#0" expanded="false" />
+            <element signature="e#3248#3249#0" expanded="false" />
+            <element signature="e#3283#3284#0" expanded="false" />
+            <element signature="e#3320#3321#0" expanded="false" />
+            <element signature="e#3374#3375#0" expanded="false" />
+            <element signature="e#3405#3406#0" expanded="false" />
+            <element signature="e#3453#3454#0" expanded="false" />
+            <element signature="e#3496#3497#0" expanded="false" />
+            <element signature="e#3531#3532#0" expanded="false" />
+            <element signature="e#3568#3569#0" expanded="false" />
+            <element signature="e#3622#3623#0" expanded="false" />
+            <element signature="e#3653#3654#0" expanded="false" />
+            <element signature="e#3701#3702#0" expanded="false" />
+            <element signature="e#3744#3745#0" expanded="false" />
+            <element signature="e#3779#3780#0" expanded="false" />
+            <element signature="e#3816#3817#0" expanded="false" />
+            <element signature="e#3870#3871#0" expanded="false" />
+            <element signature="e#3901#3902#0" expanded="false" />
+            <element signature="e#3949#3950#0" expanded="false" />
+            <element signature="e#3992#3993#0" expanded="false" />
+            <element signature="e#4027#4028#0" expanded="false" />
+            <element signature="e#4064#4065#0" expanded="false" />
+            <element signature="e#4118#4119#0" expanded="false" />
+            <element signature="e#4149#4150#0" expanded="false" />
+            <element signature="e#4197#4198#0" expanded="false" />
+            <element signature="e#4240#4241#0" expanded="false" />
+            <element signature="e#4275#4276#0" expanded="false" />
+            <element signature="e#4312#4313#0" expanded="false" />
+            <element signature="e#4366#4367#0" expanded="false" />
+            <element signature="e#4397#4398#0" expanded="false" />
+            <element signature="e#4445#4446#0" expanded="false" />
+            <element signature="e#4488#4489#0" expanded="false" />
+            <element signature="e#4523#4524#0" expanded="false" />
+            <element signature="e#4560#4561#0" expanded="false" />
+            <element signature="e#4614#4615#0" expanded="false" />
+            <element signature="e#4645#4646#0" expanded="false" />
+            <element signature="e#4693#4694#0" expanded="false" />
+            <element signature="e#4736#4737#0" expanded="false" />
+            <element signature="e#4770#4771#0" expanded="false" />
+            <element signature="e#4801#4802#0" expanded="false" />
+            <element signature="e#4848#4849#0" expanded="false" />
+            <element signature="e#4888#4889#0" expanded="false" />
+            <element signature="e#4922#4923#0" expanded="false" />
+            <element signature="e#4953#4954#0" expanded="false" />
+            <element signature="e#5000#5001#0" expanded="false" />
+            <element signature="e#5040#5041#0" expanded="false" />
+            <element signature="e#5074#5075#0" expanded="false" />
+            <element signature="e#5105#5106#0" expanded="false" />
+            <element signature="e#5152#5153#0" expanded="false" />
+            <element signature="e#5192#5193#0" expanded="false" />
+            <element signature="e#5226#5227#0" expanded="false" />
+            <element signature="e#5257#5258#0" expanded="false" />
+            <element signature="e#5304#5305#0" expanded="false" />
+            <element signature="e#5344#5345#0" expanded="false" />
+            <element signature="e#5378#5379#0" expanded="false" />
+            <element signature="e#5409#5410#0" expanded="false" />
+            <element signature="e#5456#5457#0" expanded="false" />
+            <element signature="e#5496#5497#0" expanded="false" />
+            <element signature="e#5530#5531#0" expanded="false" />
+            <element signature="e#5561#5562#0" expanded="false" />
+            <element signature="e#5608#5609#0" expanded="false" />
+            <element signature="e#5648#5649#0" expanded="false" />
+            <element signature="e#5682#5683#0" expanded="false" />
+            <element signature="e#5713#5714#0" expanded="false" />
+            <element signature="e#5760#5761#0" expanded="false" />
+            <element signature="e#5800#5801#0" expanded="false" />
+            <element signature="e#5838#5839#0" expanded="false" />
+            <element signature="e#5875#5876#0" expanded="false" />
+            <element signature="e#5932#5933#0" expanded="false" />
+            <element signature="e#5984#5985#0" expanded="false" />
+            <element signature="e#6020#6021#0" expanded="false" />
+            <element signature="e#6055#6056#0" expanded="false" />
+            <element signature="e#6108#6109#0" expanded="false" />
+            <element signature="e#6156#6157#0" expanded="false" />
+            <element signature="e#6193#6194#0" expanded="false" />
+            <element signature="e#6229#6230#0" expanded="false" />
+            <element signature="e#6284#6285#0" expanded="false" />
+            <element signature="e#6334#6335#0" expanded="false" />
+            <element signature="e#6369#6370#0" expanded="false" />
+            <element signature="e#6403#6404#0" expanded="false" />
+            <element signature="e#6454#6455#0" expanded="false" />
+            <element signature="e#6500#6501#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Driver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -899,25 +868,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/CalendarProgramController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="786" column="53" lean-forward="true" selection-start-line="786" selection-start-column="53" selection-end-line="786" selection-end-column="53" />
-          <folding>
-            <element signature="e#20808#21498#0" expanded="true" />
-            <element signature="e#21497#21498#0" expanded="true" />
-            <element signature="e#21559#22407#0" expanded="true" />
-            <element signature="e#22406#22407#0" expanded="true" />
-            <element signature="e#22468#23316#0" expanded="true" />
-            <element signature="e#23315#23316#0" expanded="true" />
-            <element signature="e#23377#24225#0" expanded="true" />
-            <element signature="e#24224#24225#0" expanded="true" />
-            <element signature="e#24286#25122#0" expanded="true" />
-            <element signature="e#25121#25122#0" expanded="true" />
-            <element signature="e#25183#26019#0" expanded="true" />
-            <element signature="e#26018#26019#0" expanded="true" />
-            <element signature="e#26080#26928#0" expanded="true" />
-            <element signature="e#26927#26928#0" expanded="true" />
-            <element signature="e#27162#27176#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="144">
+          <caret line="87" column="54" lean-forward="false" selection-start-line="87" selection-start-column="54" selection-end-line="87" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/LocalTimeRange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/Driver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="17" column="34" lean-forward="false" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
